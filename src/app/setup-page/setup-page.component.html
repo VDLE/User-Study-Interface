@@ -1,0 +1,46 @@
+<mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>User Study Prototype Interface</mat-card-title>
+      <mat-card-subtitle>All-in-one Logistical Solution to IRB User Studies</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <form (ngSubmit)="onSubmit(f)" #f="ngForm" novalidate>
+        <mat-horizontal-stepper linear>
+
+          <!-- Demographics Section -->
+          <mat-step #demographics="ngModelGroup" ngModelGroup="demographics" [completed]="demographics.valid">
+            <ng-template matStepLabel>Demographics</ng-template>
+            <app-demographics modelGroupName="demographics" (choice)="onGenderChoice($event)"></app-demographics>
+            <button mat-button matStepperNext>Next</button>
+          </mat-step>
+
+          <!-- Experimental Selection Section -->
+          <mat-step #experimentalselection="ngModelGroup" ngModelGroup="experimentalselection" [completed]="experimentalselection.valid">
+            <ng-template matStepLabel>Experiment Selection</ng-template>
+            <app-experiment-selection modelGroupName="experimentalselection" (choice)="onExperimentChoice($event)"></app-experiment-selection>          
+            <button mat-button matStepperNext (click)="onExperimentTransition()">Next</button>
+          </mat-step>
+
+
+          <!-- Experiment Test Section -->
+          <mat-step #experimentaltesting="ngModelGroup" ngModelGroup="experimentaltesting" [completed]="experimentaltesting.valid">
+            <ng-template matStepLabel>Conducting Experiment</ng-template>
+            <app-experiment-test modelGroupName="experimentaltesting" [ActualFormGroup]="experimentaltesting" [Experiment]="Experiment" [FirstPair]="FirstPair"></app-experiment-test>          
+            <button *ngIf="experimentaltesting.valid" mat-button matStepperNext (click)="onClick(f)">Next</button>
+          </mat-step>
+          
+          <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            <p>Thanks for doing the user study!</p>
+            <div>
+              <!-- <button mat-raised-button type="button" color="primary">Submit Data</button> -->
+              <button mat-raised-button type="button" color="primary">
+                <a title="Download JSON" [href]="DownloadLink" download="download.json" style="color: white;">Download JSON</a>
+              </button>
+            </div>
+          </mat-step>
+        </mat-horizontal-stepper>
+      </form>
+      <pre>{{ f.value | json }}</pre>
+    </mat-card-content>
+  </mat-card>

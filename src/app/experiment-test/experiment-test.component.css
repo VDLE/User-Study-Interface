@@ -1,0 +1,31 @@
+:host ::ng-deep .mat-horizontal-stepper-header-container {   display: none; }
+
+.Inner-Stepper{
+    min-height: 400px;
+}
+.Test-Inputs{
+    width: 100%;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+
+.Wait-Period{
+    width: 100%;
+    text-align: center;
+    margin-top: 11%;
+}
+
+.Wait-Period h3{
+    margin: 2%;
+}
+
+.Test-Inputs .ng-invalid label {
+    color: red !important;
+  }
+
+.Music-Player{
+    margin-left: 25%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}

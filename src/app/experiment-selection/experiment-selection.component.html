@@ -1,0 +1,17 @@
+<div ngModelGroup="{{modelGroupName}}" class="container experiment-grid">
+	<h1>Select Experiment to Begin:</h1>
+	<div id="radios" >
+			<label for="DeepFakes" class="material-icons">
+				<input type="radio" name="mode" id="DeepFakes" value="Deepfake-Recognition" ngModel i18n-placeholder checked required/>
+				<span (click)="ExperimentChoice('Deepfake-Recognition')">&#xe939;</span>
+			</label>							
+			<label for="Mash-Ups" class="material-icons">
+				<input type="radio" name="mode" id="Mash-Ups" value="Mash-Ups" ngModel required />
+				<span (click)="ExperimentChoice('Mash-Ups')">&#xe83b;</span>
+			</label>	
+			<label for="Emotional-Colors" class="material-icons">
+				<input type="radio" name="mode" id="Emotional-Colors" value="Emotional-Colors" ngModel required/>
+				<span (click)="ExperimentChoice('Emotional-Colors')">&#xe413;</span>
+			</label>
+	</div>
+</div>

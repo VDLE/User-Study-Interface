@@ -1,0 +1,181 @@
+<div ngModelGroup="{{modelGroupName}}">
+    <mat-card class="example-card">
+
+        <mat-card-header>
+            <mat-card-title>Follow the instructions as indicated by your experiment. </mat-card-title>
+            <mat-card-subtitle>Remember to reduce head movement!</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-horizontal-stepper #InnerStepper class="Inner-Stepper" >
+
+                <div *ngIf="Experiment == 'Deepfake-Recognition'">
+                    <div *ngFor="let question of Questions; let $index = index">
+                        <mat-step [ngModelGroup]="($index+1).toString()" #QuestionValid="ngModelGroup">
+
+
+                            <h3>Indicate which video has been altered.</h3>
+
+                            <!-- Toggle Group -->
+                            <mat-button-toggle-group name="fontStyle" aria-label="Font Style" value="question.content[0].value">
+                                <mat-button-toggle *ngFor="let vdo of question.content; let $index = index"
+                                (change)="startPlaylistVdo(vdo, $index)" [class.selected]="vdo === currentVideo"
+                                value="vgo.value">{{ vdo.name }}</mat-button-toggle>
+
+                            <!-- Video Player -->
+                            </mat-button-toggle-group>
+                            <div class="video-player-wrapper" style="margin-top: 5px;">
+                                <vg-player (onPlayerReady)="videoPlayerInit($event)">
+                                <vg-overlay-play></vg-overlay-play>
+                                <vg-buffering></vg-buffering>
+                                <vg-scrub-bar>
+                                    <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                                    <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                                </vg-scrub-bar>
+                                <vg-controls>
+                                    <vg-play-pause></vg-play-pause>
+                                    <vg-playback-button></vg-playback-button>
+                                    <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+                                    <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+                                    <vg-mute></vg-mute>
+                                    <vg-volume></vg-volume>
+                                    <vg-fullscreen></vg-fullscreen>
+                                </vg-controls>
+                                <video #media [vgMedia]="$any(media)" [src]="currentVideo.src" id="singleVideo" crossorigin>
+                                </video>
+                                </vg-player>
+                            </div>
+
+                            <!-- Input Section -->
+                            <div class="Test-Inputs">
+                                <mat-radio-group aria-label="Select an option" name="Answer" ngModel required>
+                                    <mat-radio-button *ngFor="let vdo of question.content; let $index = index" 
+                                    [value]="vdo.value" (click)="print($index)" style="margin-right: 5px;">
+                                        {{ vdo.name }}
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+
+                            <!-- <div class="Test-Inputs">
+                                <h5 class="mb-3">Select an option</h5>
+                                <div class="my-3">
+                                    <div *ngFor="let vdo of question.content; let $index = index">
+                                        <input type="radio" id="id-{{question.number}}-{{vdo.name}}" [value]="vdo.value" name="{{question.number}}" ngModel required>
+                                        <label for="id-{{question.number}}-{{vdo.name}}">{{vdo.name}}</label>
+                                    </div>
+                            
+                                    <div class="invalid-feedback" *ngIf="ActualFormGroup.invalid">
+                                        <p>Please select either value</p>
+                                    </div>
+                                </div>
+                            </div> -->
+                            
+                        
+                            <!-- Next Button -->
+                            <button *ngIf="QuestionValid.valid && $index != (Questions.length-1)" mat-button matStepperNext 
+                            (click)="$index == (Questions.length-1) ? 0 : startTimer()">Next</button>
+
+                        </mat-step>
+
+                        <mat-step *ngIf="$index != (Questions.length-1)">
+                            <div class="Wait-Period">
+                                <h3>Hey, let's take a {{max}} second break!</h3>
+                                <round-progress
+                                    [current]="current"
+                                    [max]="max"
+                                    [color]="gradient ? 'url(#gradient)' : color"
+                                    [background]="background"
+                                    [radius]="radius"
+                                    [stroke]="stroke"
+                                    [semicircle]="semicircle"
+                                    [rounded]="rounded"
+                                    [clockwise]="clockwise"
+                                    [responsive]="responsive"
+                                    [duration]="duration"
+                                    [animation]="animation"
+                                    [animationDelay]="animationDelay"
+                                    style="left:33%;">
+                                </round-progress>
+                                <h3>The next question will be in {{timeLeft}} seconds. You're almost there!</h3>
+                            </div>
+                        </mat-step>
+
+                        <mat-step *ngIf="$index == (Questions.length-1)">
+                            <div class="Wait-Period">
+                                <h3>Completed Exam!</h3>
+                            </div>
+                        </mat-step>
+
+                    </div>
+                </div>
+
+                <div *ngIf="Experiment == 'Emotional-Colors' || Experiment == 'Mash-Ups'">
+                    <mat-step>
+                        <h1>Start the Experiment when ready</h1>
+                        <button mat-button matStepperNext>Start Experiment</button>
+                    </mat-step>
+
+                    <div *ngFor="let data of Payload; let i = index">
+                        <mat-step [ngModelGroup]="(i+1).toString()" #ELabelValid="ngModelGroup">
+
+                            <h3 *ngIf="Experiment == 'Emotional-Colors'">Take a look at the image and indicate the responses it best fits.</h3>
+                            <h3 *ngIf="Experiment == 'Mash-Ups'">Listen real close and think about the music</h3>
+                            <!-- <h3 *ngIf="Experiment == 'Mash-Ups'">The next song will be in {{timeLeft}} seconds</h3> -->
+
+                            <img *ngIf="Experiment == 'Emotional-Colors'" height="400" width="800" [lazyLoad]="data.src">
+
+                            <div *ngIf="Experiment == 'Mash-Ups'">
+                                <!-- <audio class="Music-Player" (ended)="NextSwitch = true" controls>
+                                    <source src="{{data.src}}" type="audio/wav">
+                                    Your browser does not support the audio tag.
+                                  </audio> -->
+                                <img height="400" width="400" [lazyLoad]="LoadingImage" (load)="playMusic(data.src, i, Payload.length)">
+                            </div>
+
+                            <!-- Input Section -->
+                            <div *ngIf="Experiment == 'Emotional-Colors'">
+                                <div class="Test-Inputs">
+                                    <label>Between 1 and 5, with 1 indicating unpleasant and 5 indicating pleasant, how would you rate this image?</label> <br/>
+                                    <mat-radio-group aria-label="Between 1 and 5, with 1 indicating unpleasant and 5 indicating pleasant, how would you rate this image?" name="Valence" ngModel required>
+                                        <mat-radio-button *ngFor="let number of [0,1,2,3,4]; let i = index" 
+                                        [value]="i+1" style="margin-right: 5px; margin-top: 5px;">
+                                            {{i+1}}
+                                        </mat-radio-button>
+                                    </mat-radio-group>
+
+                                </div>
+
+                                <div class="Test-Inputs">
+                                    <label>Between 1 and 5, with 1 indicating calm and 5 indicating excitement, how would you rate this image?</label> <br/>
+                                    <mat-radio-group aria-label="Between 1 and 5, with 1 indicating calm and 5 indicating excitement, how would you rate this image?" name="Arousal" ngModel required>
+                                        <mat-radio-button *ngFor="let number of [0,1,2,3,4]; let i = index" 
+                                        [value]="i+1" style="margin-right: 5px; margin-top: 5px;">
+                                            {{i+1}}
+                                        </mat-radio-button>
+                                    </mat-radio-group>
+
+                                </div>
+                            </div>
+                            <!-- <div class="Test-Inputs">
+                                <mat-radio-group aria-label="Between 1 and 5, with 1 indicating independent and 5 indicating dependent, how would you rate this image?" name="Dominance" ngModel required>
+                                    <mat-radio-button *ngFor="let number of [0,1,2,3,4]; let i = index" 
+                                    [value]="i+1" style="margin-right: 5px; margin-top: 5px;">
+                                        {{i+1}}
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                            </div> -->
+
+                            <!-- Next Button -->
+                            <!-- <button *ngIf="Experiment == 'Mash-Ups' && NextSwitch == true && i != (Payload.length-1)" 
+                            (click)="NextSwitch = false" mat-button matStepperNext>Next</button> -->
+                            <button *ngIf="Experiment == 'Emotional-Colors' && ELabelValid.valid && i != (Payload.length-1)" 
+                            mat-button matStepperNext>Next</button>
+
+                        </mat-step>
+                    </div>
+                </div>
+
+            </mat-horizontal-stepper>
+        </mat-card-content>
+    </mat-card>
+</div>
+

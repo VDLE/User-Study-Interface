@@ -1,0 +1,93 @@
+/* =============================================
+* RADIO BUTTONS
+=============================================== */
+
+#radios label {
+	cursor: pointer;
+	position: relative;
+}
+
+#radios label + label {
+	margin-left: 15px;
+}
+
+input[type="radio"] {
+	opacity: 0; /* hidden but still tabable */
+	position: absolute;
+}
+
+input[type="radio"] + span {
+	font-family: 'Material Icons';
+	color: #8163b6;
+	border-radius: 50%;
+	padding: 12px;
+	transition: all 0.4s;
+	-webkit-transition: all 0.4s;
+}
+
+input[type="radio"]:checked + span {
+	color: #D9E7FD;
+  background-color: #673ab7;
+}
+
+input[type="radio"]:focus + span {
+	color: #fff;
+}
+
+/* ================ TOOLTIPS ================= */
+
+#radios label:hover::before {
+	content: attr(for);
+	font-family: Roboto, -apple-system, sans-serif;
+	text-transform: capitalize;
+	font-size: 11px;
+	position: absolute;
+	top: 170%;
+	left: 0;
+	right: 0;
+	opacity: 0.75;
+	background-color: #323232;
+	color: #fff;	
+	padding: 4px;
+	border-radius: 3px;
+    min-width: max-content;
+  display: block;
+}
+
+/* =============================================
+* CENTERING, CONTAINER STYLING ETC || IGNORE
+=============================================== */
+
+h1 {
+	font-weight: 300;
+	color: #6f42c1;
+	text-align: center;
+	margin-bottom: 50px;
+    margin-top: 40px;
+}
+
+#radios {
+	text-align: center;
+	margin: 0 auto;
+}
+
+.container {
+	margin: 0 auto;
+}
+
+html {
+	height: 100%;
+	font-family: Roboto, -apple-system, sans-serif;
+}
+
+body {
+	display: flex;
+	height: 100%;
+	align-items: center;
+	text-align: center;
+}
+
+.experiment-grid{
+    margin-top: 80px;
+    min-height: 200px;
+}

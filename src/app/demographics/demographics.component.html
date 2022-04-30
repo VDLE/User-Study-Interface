@@ -1,0 +1,44 @@
+<div ngModelGroup="{{modelGroupName}}">
+
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="20px">
+        <mat-form-field fxFlex="45">
+            <input matInput placeholder="First Name" name="firstName" ngModel i18n-placeholder>
+        </mat-form-field>
+        <mat-form-field fxFlex="45">
+            <input matInput placeholder="Last Name" name="lastName" required ngModel i18n-placeholder>
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="20px">
+
+        <mat-form-field fxFlex="45">
+            <mat-label i18n>Gender</mat-label>
+            <mat-select [(ngModel)]="gender" [ngModelOptions]="{standalone: true}" (selectionChange)="onChange(gender)" required>
+                <mat-option value="Female" i18n>Female</mat-option>
+                <mat-option value="Male" i18n>Male</mat-option>
+                <mat-option value="Other" i18n>Other</mat-option>
+                <mat-option value="Other" i18n>Prefer to not say</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="45">
+            <input matInput [matDatepicker]="picker" placeholder="Birth Date" name="birthDate" ngModel i18n-placeholder required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+    </div>
+
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="20px">
+
+        <mat-form-field fxFlex="45">
+            <input matInput placeholder="Phone Number" name="phone1" ngModel i18n-placeholder>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="45">
+            <input matInput placeholder="E-Mail Address" name="eMail1" ngModel i18n-placeholder>
+        </mat-form-field>
+
+    </div>
+
+</div>
