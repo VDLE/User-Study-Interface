@@ -111,9 +111,27 @@
                 <div *ngIf="Experiment == 'Emotional-Colors' || Experiment == 'Mash-Ups'">
                     <mat-step>
                         <h1>Start the Experiment when ready</h1>
-                        <button mat-button matStepperNext>Start Experiment</button>
+                        <button mat-button matStepperNext (click)="startTimer(30000)">Start Experiment</button>
                     </mat-step>
-
+                    <mat-step>
+                        <round-progress
+                        [current]="current"
+                        [max]="max"
+                        [color]="gradient ? 'url(#gradient)' : color"
+                        [background]="background"
+                        [radius]="radius"
+                        [stroke]="stroke"
+                        [semicircle]="semicircle"
+                        [rounded]="rounded"
+                        [clockwise]="clockwise"
+                        [responsive]="responsive"
+                        [duration]="duration"
+                        [animation]="animation"
+                        [animationDelay]="animationDelay"
+                        style="left:33%;">
+                    </round-progress>
+                        <h1 >Now Close Your Eyes and Open Your Eyes</h1>
+                    </mat-step>
                     <div *ngFor="let data of Payload; let i = index">
                         <mat-step [ngModelGroup]="(i+1).toString()" #ELabelValid="ngModelGroup">
 
