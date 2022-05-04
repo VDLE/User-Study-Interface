@@ -8,6 +8,92 @@
         <mat-card-content>
             <mat-horizontal-stepper #InnerStepper class="Inner-Stepper" >
 
+                <!-- Baseline Phase -->
+                <mat-step>
+                    <h1>Begin Configuration</h1>
+                    <button mat-button matStepperNext>Start Configuration</button>
+                </mat-step>
+
+                <!-- Eyes Open and Closed -->
+                <div *ngIf="Experiment != 'Emotional-Colors'">
+                    <mat-step>
+                        <div class="Wait-Period">
+                            <h3>Hey, keep your eyes open for 60 seconds!</h3>
+                            <img 
+                                height="200" 
+                                width="600" 
+                                [lazyLoad]="'assets/Static/eyes-open.jpg'"
+                                (load)="SetEvent('Eyes-Open-Start'); startTimer(2,60,60);"
+                                >
+                            <round-progress
+                                [current]="current"
+                                [max]="max"
+                                [color]="gradient ? 'url(#gradient)' : color"
+                                [background]="background"
+                                [radius]="radius"
+                                [stroke]="stroke"
+                                [semicircle]="semicircle"
+                                [rounded]="rounded"
+                                [clockwise]="clockwise"
+                                [responsive]="responsive"
+                                [duration]="duration"
+                                [animation]="animation"
+                                [animationDelay]="animationDelay"
+                                style="left:33%;"
+                                >
+                            </round-progress>
+                            <h3>Keep them open for just {{timeLeft}} more seconds. You're almost there!</h3>
+                        </div>
+                    </mat-step>
+    
+                    <mat-step>
+                        <div class="Wait-Period">
+                            <h3>Hey, keep your eyes closed for 60 seconds!</h3>
+                            <img 
+                                height="200" 
+                                width="600" 
+                                [lazyLoad]="'assets/Static/eyes-closed.jpg'" 
+                                (load)="SetEvent('Eyes-Closed-Start'); startTimer(3,60,60);">
+                            <round-progress
+                                [current]="current"
+                                [max]="max"
+                                [color]="gradient ? 'url(#gradient)' : color"
+                                [background]="background"
+                                [radius]="radius"
+                                [stroke]="stroke"
+                                [semicircle]="semicircle"
+                                [rounded]="rounded"
+                                [clockwise]="clockwise"
+                                [responsive]="responsive"
+                                [duration]="duration"
+                                [animation]="animation"
+                                [animationDelay]="animationDelay"
+                                style="left:33%;">
+                            </round-progress>
+                            <h3>Keep them closed for just {{timeLeft}} more seconds. You're almost there!</h3>
+                        </div>
+                    </mat-step>
+                </div>
+
+                <!-- IAPS Phase -->
+                <div>
+                    <div *ngFor="let data of IAPS; let i = index">
+                        <mat-step *ngFor="let group of data.group; let j = index">
+                            <div>
+                                <h3>Focus on the following images</h3>
+                                <img height="400" width="800" [lazyLoad]="group.src" 
+                                    (load)="SetEvent('C' + (i+1).toString() + '-I' + (j+1).toString() + '-Start'); InnerStepperNext('C'+(i+1).toString(),'I'+(j+1).toString(),5000)">
+                            </div>
+                        </mat-step>
+                    </div>
+                </div>
+
+                <!-- Start Experiment -->
+                <mat-step>
+                    <h1>Start the Experiment when ready</h1>
+                    <button mat-button matStepperNext>Start Experiment</button>
+                </mat-step>
+
                 <div *ngIf="Experiment == 'Deepfake-Recognition'">
                     <div *ngFor="let question of Questions; let $index = index">
                         <mat-step [ngModelGroup]="($index+1).toString()" #QuestionValid="ngModelGroup">
@@ -54,22 +140,7 @@
                                     </mat-radio-button>
                                 </mat-radio-group>
                             </div>
-
-                            <!-- <div class="Test-Inputs">
-                                <h5 class="mb-3">Select an option</h5>
-                                <div class="my-3">
-                                    <div *ngFor="let vdo of question.content; let $index = index">
-                                        <input type="radio" id="id-{{question.number}}-{{vdo.name}}" [value]="vdo.value" name="{{question.number}}" ngModel required>
-                                        <label for="id-{{question.number}}-{{vdo.name}}">{{vdo.name}}</label>
-                                    </div>
                             
-                                    <div class="invalid-feedback" *ngIf="ActualFormGroup.invalid">
-                                        <p>Please select either value</p>
-                                    </div>
-                                </div>
-                            </div> -->
-                            
-                        
                             <!-- Next Button -->
                             <button *ngIf="QuestionValid.valid && $index != (Questions.length-1)" mat-button matStepperNext 
                             (click)="$index == (Questions.length-1) ? 0 : startTimer()">Next</button>
@@ -109,30 +180,29 @@
                 </div>
 
                 <div *ngIf="Experiment == 'Emotional-Colors' || Experiment == 'Mash-Ups'">
-                    <mat-step>
-                        <h1>Start the Experiment when ready</h1>
-                        <button mat-button matStepperNext>Start Experiment</button>
-                    </mat-step>
 
                     <div *ngFor="let data of Payload; let i = index">
-                        <mat-step [ngModelGroup]="(i+1).toString()" #ELabelValid="ngModelGroup">
+                        <!-- <mat-step [ngModelGroup]="(i+1).toString()" #ELabelValid="ngModelGroup"> -->
+                        <mat-step *ngFor="let group of data.group; let j = index">
 
-                            <h3 *ngIf="Experiment == 'Emotional-Colors'">Take a look at the image and indicate the responses it best fits.</h3>
+                            <h3 *ngIf="Experiment == 'Emotional-Colors'">Take a look at the image and think about each set.</h3>
                             <h3 *ngIf="Experiment == 'Mash-Ups'">Listen real close and think about the music</h3>
-                            <!-- <h3 *ngIf="Experiment == 'Mash-Ups'">The next song will be in {{timeLeft}} seconds</h3> -->
 
-                            <img *ngIf="Experiment == 'Emotional-Colors'" height="400" width="800" [lazyLoad]="data.src">
+                            <div *ngIf="Experiment == 'Emotional-Colors'">
+
+                                <img height="400" width="800" [lazyLoad]="group.src" (load)="SetEvent((i+1).toString() + '-' + (j+1).toString() + '-Start'); InnerStepperNext((i+1).toString(),(j+1).toString(),5000)">
+                            </div>
 
                             <div *ngIf="Experiment == 'Mash-Ups'">
                                 <!-- <audio class="Music-Player" (ended)="NextSwitch = true" controls>
                                     <source src="{{data.src}}" type="audio/wav">
                                     Your browser does not support the audio tag.
                                   </audio> -->
-                                <img height="400" width="400" [lazyLoad]="LoadingImage" (load)="playMusic(data.src, i, Payload.length)">
+                                <img height="400" width="400" [lazyLoad]="LoadingImage" (load)="SetEvent((i+1).toString() + '-' + (j+1).toString() + '-Start'); playMusic(group.src, i, j);">
                             </div>
 
                             <!-- Input Section -->
-                            <div *ngIf="Experiment == 'Emotional-Colors'">
+                            <!-- <div *ngIf="Experiment == 'Emotional-Colors'">
                                 <div class="Test-Inputs">
                                     <label>Between 1 and 5, with 1 indicating unpleasant and 5 indicating pleasant, how would you rate this image?</label> <br/>
                                     <mat-radio-group aria-label="Between 1 and 5, with 1 indicating unpleasant and 5 indicating pleasant, how would you rate this image?" name="Valence" ngModel required>
@@ -154,7 +224,7 @@
                                     </mat-radio-group>
 
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- <div class="Test-Inputs">
                                 <mat-radio-group aria-label="Between 1 and 5, with 1 indicating independent and 5 indicating dependent, how would you rate this image?" name="Dominance" ngModel required>
                                     <mat-radio-button *ngFor="let number of [0,1,2,3,4]; let i = index" 
@@ -167,9 +237,17 @@
                             <!-- Next Button -->
                             <!-- <button *ngIf="Experiment == 'Mash-Ups' && NextSwitch == true && i != (Payload.length-1)" 
                             (click)="NextSwitch = false" mat-button matStepperNext>Next</button> -->
-                            <button *ngIf="Experiment == 'Emotional-Colors' && ELabelValid.valid && i != (Payload.length-1)" 
-                            mat-button matStepperNext>Next</button>
+                            <!-- <button *ngIf="Experiment == 'Emotional-Colors' && ELabelValid.valid && i != (Payload.length-1)" 
+                            mat-button matStepperNext>Next</button> -->
 
+                        </mat-step>
+
+                        <mat-step *ngIf="Experiment == 'Emotional-Colors'">
+                            <div>
+                                <h3>Hey, let's take a 5 second break!</h3>
+                                <img height="400" width="800" [lazyLoad]="'assets/Static/grey-screen.jpg'" 
+                                    (load)="'Grey-Screen-' + SetEvent((i+1).toString() + '-Start'); InnerStepperNext('Grey-Screen',(i+1).toString(),5000)">
+                            </div>
                         </mat-step>
                     </div>
                 </div>

@@ -33,13 +33,20 @@ export class SetupPageComponent{
     var mode = 1;
     var label = "Task 1 Start Date"
     this.FirstPair = uuidv4();
-    // this.http.get<any>('https://api.github.com/users/VDLE/repos').subscribe(data => {
-    //   console.log(data);
-    // })     
+    var FileName = "http://127.0.0.1:5000/start/" + this.Experiment;
+    this.http.get<any>(FileName).subscribe(data => {
+      console.log(data);
+    })     
   }
 
 
   onClick(form: NgForm): void {
+
+    // Stop Experiment 
+    this.http.get<any>("http://127.0.0.1:5000/stop").subscribe(data => {
+      console.log(data);
+    })  
+
     var json = JSON.stringify(form.value);
     var access = JSON.parse(json);
 
