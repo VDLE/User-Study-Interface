@@ -116,23 +116,171 @@ export class ExperimentTestComponent{
     }   
   ];
 
-  IAPS = [
+  IAPSdata = [
       {
+        emotion: "V+A+",
         group:[
           {
-            src: '/assets/IAPS/file1.wav' 
+            src: '/assets/IAPS/V+A+/1340.jpg' 
           }, 
-          // {
-          //   src: '/assets/Audio/file12.wav' 
-          // },    
-          // {
-          //   src: '/assets/Audio/file18.wav' 
-          // }, 
-          // {
-          //   src: '/assets/Audio/file29.wav' 
-          // }
+          {
+            src: '/assets/IAPS/V+A+/2158.jpg' 
+          },    
+          {
+            src: '/assets/IAPS/V+A+/2303.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V+A+/2311.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V+A+/2340.jpg' 
+          },    
+          {
+            src: '/assets/IAPS/V+A+/2344.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V+A+/2345.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V+A+/2347.jpg' 
+          },    
+          {
+            src: '/assets/IAPS/V+A+/2391.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V+A+/8120.jpg' 
+          },    
+          {
+            src: '/assets/IAPS/V+A+/8350.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V+A+/8496.jpg' 
+          }
         ]
-      }
+      },
+      {
+        emotion: "V+A-",
+        group:[
+          {
+            src: '/assets/IAPS/V+A-/5000.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V+A-/5001.jpg' 
+          },    
+          {
+            src: '/assets/IAPS/V+A-/5010.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V+A-/5020.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V+A-/5030.jpg' 
+          },    
+          {
+            src: '/assets/IAPS/V+A-/5200.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V+A-/5201.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V+A-/5202.jpg' 
+          },    
+          {
+            src: '/assets/IAPS/V+A-/5720.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V+A-/5750.jpg' 
+          },    
+          {
+            src: '/assets/IAPS/V+A-/5760.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V+A-/5779.jpg' 
+          }
+        ]
+      },
+      {
+        emotion: "V-A+",
+        group:[
+          {
+            src: '/assets/IAPS/V-A+/1030.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V-A+/1033.jpg' 
+          },    
+          {
+            src: '/assets/IAPS/V-A+/1080.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V-A+/1090.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V-A+/1110.jpg' 
+          },    
+          {
+            src: '/assets/IAPS/V-A+/1113.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V-A+/1200.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V-A+/1201.jpg' 
+          },    
+          {
+            src: '/assets/IAPS/V-A+/1202.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V-A+/1220.jpg' 
+          },    
+          {
+            src: '/assets/IAPS/V-A+/1271.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V-A+/1274.jpg' 
+          }
+        ]
+      },
+      {
+        emotion: "V-A-",
+        group:[
+          {
+            src: '/assets/IAPS/V-A-/2141.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V-A-/2205.jpg' 
+          },    
+          {
+            src: '/assets/IAPS/V-A-/2276.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V-A-/2301.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V-A-/2312.jpg' 
+          },    
+          {
+            src: '/assets/IAPS/V-A-/2456.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V-A-/2457.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V-A-/2700.jpg' 
+          },    
+          {
+            src: '/assets/IAPS/V-A-/2900.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V-A-/3300.jpg' 
+          },    
+          {
+            src: '/assets/IAPS/V-A-/9190.jpg' 
+          }, 
+          {
+            src: '/assets/IAPS/V-A-/9220.jpg' 
+          }
+        ]
+      }    
 
   ]
   

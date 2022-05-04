@@ -10,12 +10,12 @@
 
                 <!-- Baseline Phase -->
                 <mat-step>
-                    <h1>Begin Configuration</h1>
-                    <button mat-button matStepperNext>Start Configuration</button>
+                    <h1>Begin Eye Baseline</h1>
+                    <button mat-button matStepperNext>Start Eye Baseline</button>
                 </mat-step>
 
                 <!-- Eyes Open and Closed -->
-                <div *ngIf="Experiment != 'Emotional-Colors'">
+                <div>
                     <mat-step>
                         <div class="Wait-Period">
                             <h3>Hey, keep your eyes open for 60 seconds!</h3>
@@ -75,14 +75,26 @@
                     </mat-step>
                 </div>
 
+                <mat-step>
+                    <h1>Begin IAPS</h1>
+                    <button mat-button matStepperNext>Start IAPS</button>
+                </mat-step>
+
                 <!-- IAPS Phase -->
                 <div>
-                    <div *ngFor="let data of IAPS; let i = index">
+                    <div *ngFor="let data of IAPSdata; let i = index">
                         <mat-step *ngFor="let group of data.group; let j = index">
                             <div>
                                 <h3>Focus on the following images</h3>
                                 <img height="400" width="800" [lazyLoad]="group.src" 
                                     (load)="SetEvent('C' + (i+1).toString() + '-I' + (j+1).toString() + '-Start'); InnerStepperNext('C'+(i+1).toString(),'I'+(j+1).toString(),5000)">
+                            </div>
+                        </mat-step>
+                        <mat-step>
+                            <div>
+                                <h3>Hey, let's take a 5 second break!</h3>
+                                <img height="400" width="800" [lazyLoad]="'assets/Static/grey-screen.jpg'" 
+                                    (load)="'Grey-Screen-' + SetEvent((i+1).toString() + '-Start'); InnerStepperNext('Grey-Screen',(i+1).toString(),5000)">
                             </div>
                         </mat-step>
                     </div>
