@@ -15,7 +15,7 @@
                 </mat-step>
 
                 <!-- Eyes Open and Closed -->
-                <div>
+                <div *ngIf="Experiment != 'Deepfake-Recognition'">
                     <mat-step>
                         <div class="Wait-Period">
                             <h3>Hey, keep your eyes open for 60 seconds!</h3>
@@ -81,7 +81,7 @@
                 </mat-step>
 
                 <!-- IAPS Phase -->
-                <div>
+                <div *ngIf="Experiment != 'Deepfake-Recognition'">
                     <div *ngFor="let data of IAPSdata; let i = index">
                         <mat-step *ngFor="let group of data.group; let j = index">
                             <div>
@@ -94,7 +94,7 @@
                             <div>
                                 <h3>Hey, let's take a 5 second break!</h3>
                                 <img height="400" width="800" [lazyLoad]="'assets/Static/grey-screen.jpg'" 
-                                    (load)="'Grey-Screen-' + SetEvent((i+1).toString() + '-Start'); InnerStepperNext('Grey-Screen',(i+1).toString(),5000)">
+                                    (load)="SetEvent('Grey-Screen-' + (i+1).toString() + '-Start'); InnerStepperNext('Grey-Screen',(i+1).toString(),5000)">
                             </div>
                         </mat-step>
                     </div>
@@ -103,66 +103,84 @@
                 <!-- Start Experiment -->
                 <mat-step>
                     <h1>Start the Experiment when ready</h1>
-                    <button mat-button matStepperNext>Start Experiment</button>
+                    <button  mat-button matStepperNext>Start Experiment</button>
                 </mat-step>
 
+                <!-- Deepfake Experiment -->
                 <div *ngIf="Experiment == 'Deepfake-Recognition'">
-                    <div *ngFor="let question of Questions; let $index = index">
+                    <div *ngFor="let question of Questions; let $index = index" class="Wait-Period">
                         <mat-step [ngModelGroup]="($index+1).toString()" #QuestionValid="ngModelGroup">
+                            <ng-template matStepContent>
 
+                                <img height="75" width="600" [lazyLoad]="question.banner" 
+                                (load)="SetEvent('Task-' + ($index+1).toString() + '-Start');">
 
-                            <h3>Indicate which video has been altered.</h3>
+                                <br/>
 
-                            <!-- Toggle Group -->
-                            <mat-button-toggle-group name="fontStyle" aria-label="Font Style" value="question.content[0].value">
-                                <mat-button-toggle *ngFor="let vdo of question.content; let $index = index"
-                                (change)="startPlaylistVdo(vdo, $index)" [class.selected]="vdo === currentVideo"
-                                value="vgo.value">{{ vdo.name }}</mat-button-toggle>
+                                <!-- Toggle Group -->
+                                <mat-button-toggle-group name="fontStyle" aria-label="Font Style" value="question.content[0].value">
+                                    <mat-button-toggle *ngFor="let vdo of question.content; let $index = index"
+                                    (change)="startPlaylistVdo(vdo, $index)" [class.selected]="vdo === currentVideo"
+                                    value="vgo.value">{{ vdo.name }}</mat-button-toggle>
 
-                            <!-- Video Player -->
-                            </mat-button-toggle-group>
-                            <div class="video-player-wrapper" style="margin-top: 5px;">
-                                <vg-player (onPlayerReady)="videoPlayerInit($event)">
-                                <vg-overlay-play></vg-overlay-play>
-                                <vg-buffering></vg-buffering>
-                                <vg-scrub-bar>
-                                    <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-                                    <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
-                                </vg-scrub-bar>
-                                <vg-controls>
-                                    <vg-play-pause></vg-play-pause>
-                                    <vg-playback-button></vg-playback-button>
-                                    <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
-                                    <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
-                                    <vg-mute></vg-mute>
-                                    <vg-volume></vg-volume>
-                                    <vg-fullscreen></vg-fullscreen>
-                                </vg-controls>
-                                <video #media [vgMedia]="$any(media)" [src]="currentVideo.src" id="singleVideo" crossorigin>
-                                </video>
-                                </vg-player>
+                                <!-- Video Player -->
+                                </mat-button-toggle-group>
+                                <div class="video-player-wrapper" style="margin-top: 5px;">
+                                    <vg-player (onPlayerReady)="videoPlayerInit($event)">
+                                    <vg-overlay-play></vg-overlay-play>
+                                    <vg-buffering></vg-buffering>
+                                    <vg-scrub-bar>
+                                        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                                        <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                                    </vg-scrub-bar>
+                                    <vg-controls>
+                                        <vg-play-pause></vg-play-pause>
+                                        <vg-playback-button></vg-playback-button>
+                                        <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+                                        <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+                                        <vg-mute></vg-mute>
+                                        <vg-volume></vg-volume>
+                                        <vg-fullscreen></vg-fullscreen>
+                                    </vg-controls>
+                                    <video #media [vgMedia]="$any(media)" [src]="currentVideo.src" id="singleVideo" crossorigin>
+                                    </video>
+                                    </vg-player>
+                                </div>
+
+                                <!-- Input Section -->
+                                <div class="Test-Inputs">
+                                    <mat-radio-group aria-label="Select an option" name="Answer" ngModel required>
+                                        <mat-radio-button *ngFor="let vdo of question.content; let $index = index" 
+                                        [value]="vdo.value" (click)="print($index)" style="margin-right: 5px;">
+                                            {{ vdo.name }}
+                                        </mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                                
+                                <!-- Next Button -->
+                                <button *ngIf="QuestionValid.valid" mat-button matStepperNext 
+                                (click)="$index == (Questions.length-1) ? 0 : SetEvent('Task-' + ($index+1).toString() + '-End'); Loop();">Next</button>
+                            </ng-template>
+                        </mat-step>
+
+                        <mat-step>
+                            <div class="Wait-Period">
+                                <h1 class="c2">The answer is {{question.answer}}</h1>
+                                <img height="300" width="600" [lazyLoad]="'assets/Static/yay-happy.gif'" 
+                                    (load)="SetEvent('Reveal-Screen-' + ($index+1).toString() + '-Start'); InnerStepperNext('Reveal-Screen',($index+1).toString(),10000)">
                             </div>
-
-                            <!-- Input Section -->
-                            <div class="Test-Inputs">
-                                <mat-radio-group aria-label="Select an option" name="Answer" ngModel required>
-                                    <mat-radio-button *ngFor="let vdo of question.content; let $index = index" 
-                                    [value]="vdo.value" (click)="print($index)" style="margin-right: 5px;">
-                                        {{ vdo.name }}
-                                    </mat-radio-button>
-                                </mat-radio-group>
-                            </div>
-                            
-                            <!-- Next Button -->
-                            <button *ngIf="QuestionValid.valid && $index != (Questions.length-1)" mat-button matStepperNext 
-                            (click)="$index == (Questions.length-1) ? 0 : startTimer()">Next</button>
-
                         </mat-step>
 
                         <mat-step *ngIf="$index != (Questions.length-1)">
                             <div class="Wait-Period">
                                 <h3>Hey, let's take a {{max}} second break!</h3>
-                                <round-progress
+                                <img 
+                                    height="400" 
+                                    width="800" 
+                                    [lazyLoad]="'assets/Static/rando-1.gif'"
+                                    (load)="SetEvent('Wait-Period-'+ ($index+1).toString()+'-Start'); startTimer(1,20,20);"
+                                    >
+                                <!-- <round-progress
                                     [current]="current"
                                     [max]="max"
                                     [color]="gradient ? 'url(#gradient)' : color"
@@ -177,8 +195,8 @@
                                     [animation]="animation"
                                     [animationDelay]="animationDelay"
                                     style="left:33%;">
-                                </round-progress>
-                                <h3>The next question will be in {{timeLeft}} seconds. You're almost there!</h3>
+                                </round-progress> -->
+                                <h3>The next question will be in {{timeLeft}} seconds.</h3>
                             </div>
                         </mat-step>
 

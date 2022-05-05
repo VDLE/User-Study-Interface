@@ -26,7 +26,7 @@
           <mat-step #experimentaltesting="ngModelGroup" ngModelGroup="experimentaltesting" [completed]="experimentaltesting.valid">
             <ng-template matStepLabel>Conducting Experiment</ng-template>
             <app-experiment-test modelGroupName="experimentaltesting" [ActualFormGroup]="experimentaltesting" [Experiment]="Experiment" [FirstPair]="FirstPair"></app-experiment-test>          
-            <button *ngIf="experimentaltesting.valid" mat-button matStepperNext (click)="onClick(f)">Next</button>
+            <button *ngIf="experimentaltesting.valid" mat-button matStepperNext (click)="onClick(f)">Finish Exam</button>
           </mat-step>
           
           <mat-step>

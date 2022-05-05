@@ -5,6 +5,8 @@ import { MatRadioGroup } from '@angular/material/radio';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { v4 as uuidv4 } from 'uuid';
 
+declare var anime: any;
+
 @Component({
   selector: 'app-experiment-test',
   templateUrl: './experiment-test.component.html',
@@ -83,7 +85,9 @@ export class ExperimentTestComponent{
 
   Questions = [
     {
+      answer: 'A',
       number: 1,
+      banner: 'assets/Static/guess.png',
       content: [
         {
           name: 'Option A',
@@ -99,7 +103,27 @@ export class ExperimentTestComponent{
         }]
     },
     {
+      answer: 'B',
       number: 2,
+      banner: 'assets/Static/guess.png',
+      content: [
+        {
+          name: 'Option A',
+          src: '/assets/video3.mp4',
+          type: 'video/mp4',
+          value: 'A'
+        },
+        {
+          name: 'Option B',
+          src: '/assets/video4.mp4',
+          type: 'video/mp4',
+          value: 'B'
+        }]
+    },
+    {
+      answer: 'B',
+      number: 3,
+      banner: 'assets/Static/guess.png',
       content: [
         {
           name: 'Option A',
@@ -645,6 +669,7 @@ export class ExperimentTestComponent{
   ]
 
   LoadingImage = "/assets/Static/listen.png"
+  GuessImage = 'assets/Static/guess.png'
 
   NextSwitch: boolean = false;
 
@@ -685,10 +710,31 @@ export class ExperimentTestComponent{
   }
 
   ngAfterViewInit() {
-    var DeepFakeData = [];
-    var MashUpData = [];
-    var EmotionalColorData = [];
     
+  }
+
+  Loop(){
+  // Wrap every letter in a span
+  let textWrapper = document.querySelector('.c2');
+  textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter' style='display:inline-block;'>$&</span>");
+  
+  anime.timeline({loop: true})
+    .add({
+      targets: '.c2 .letter .loop-infinity',
+      translateY: [100,0],
+      translateZ: 0,
+      opacity: [0,1],
+      easing: "easeOutExpo",
+      duration: 1200,
+      delay: (el, i) => 500 + 30 * i
+    }).add({
+      targets: '.c2 .letter',
+      translateY: [0,-100],
+      opacity: [1,0],
+      easing: "easeInExpo",
+      duration: 1100,
+      delay: (el, i) => 100 + 30 * i
+    });
   }
 
   @ViewChild('InnerStepper') private Stepper: MatStepper;
@@ -717,6 +763,7 @@ export class ExperimentTestComponent{
           this.questionIndex++;
           this.activeIndex = 0;
           this.currentVideo = this.Questions[this.questionIndex].content[this.activeIndex];
+          this.SetEvent('Wait-Period-End');
         }
         else if(mode == 2){
           this.SetEvent('Eyes-Open-End');
