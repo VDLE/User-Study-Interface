@@ -33,6 +33,7 @@ import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 import {RoundProgressModule} from 'angular-svg-round-progressbar';
 
 import { LazyLoadImageModule} from 'ng-lazyload-image';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 
 @NgModule({
@@ -66,7 +67,8 @@ import { LazyLoadImageModule} from 'ng-lazyload-image';
     VgOverlayPlayModule,
     VgBufferingModule,
     RoundProgressModule,
-    LazyLoadImageModule
+    LazyLoadImageModule,
+    NgxSliderModule
 
   ],
   providers: [],

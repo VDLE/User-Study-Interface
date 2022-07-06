@@ -15,6 +15,7 @@ export class ExperimentSelectionComponent {
 
   @Input() modelGroupName: string;
   @Output() choice = new EventEmitter<string>();
+  SelectFlag = 0;
 
   ExperimentChoice(selection: string){
     this.choice.emit(selection);

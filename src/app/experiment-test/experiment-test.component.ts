@@ -4,6 +4,7 @@ import { ControlContainer, NgModelGroup, FormControl, FormGroup, Validators } fr
 import { MatRadioGroup } from '@angular/material/radio';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { v4 as uuidv4 } from 'uuid';
+import { Options } from "@angular-slider/ngx-slider";
 
 declare var anime: any;
 
@@ -83,168 +84,200 @@ export class ExperimentTestComponent{
     this.current += amount;
   }
 
+  // Questions = [
+  //   {
+  //     answer: 'B',
+  //     number: 1,
+  //     banner: 'assets/Static/guess.png',
+  //     content: [
+  //       {
+  //         name: 'Option A',
+  //         src: '/assets/Deep-Fake/03_11__1a.mp4',
+  //         type: 'video/mp4',
+  //         value: 'A'
+  //       },
+  //       {
+  //         name: 'Option B',
+  //         src: '/assets/Deep-Fake/03__1b.mp4',
+  //         type: 'video/mp4',
+  //         value: 'B'
+  //       }]
+  //   },
+  //   {
+  //     answer: 'A',
+  //     number: 2,
+  //     banner: 'assets/Static/guess.png',
+  //     content: [
+  //       {
+  //         name: 'Option A',
+  //         src: '/assets/Deep-Fake/10__2a.mp4',
+  //         type: 'video/mp4',
+  //         value: 'A'
+  //       },
+  //       {
+  //         name: 'Option B',
+  //         src: '/assets/Deep-Fake/10_22__2b.mp4',
+  //         type: 'video/mp4',
+  //         value: 'B'
+  //       }]
+  //   },
+  //   {
+  //     answer: 'B',
+  //     number: 3,
+  //     banner: 'assets/Static/guess.png',
+  //     content: [
+  //       {
+  //         name: 'Option A',
+  //         src: '/assets/Deep-Fake/01_11__3a.mp4',
+  //         type: 'video/mp4',
+  //         value: 'A'
+  //       },
+  //       {
+  //         name: 'Option B',
+  //         src: '/assets/Deep-Fake/11__3b.mp4',
+  //         type: 'video/mp4',
+  //         value: 'B'
+  //       }]
+  //   },
+  //   {
+  //     answer: 'B',
+  //     number: 4,
+  //     banner: 'assets/Static/guess.png',
+  //     content: [
+  //       {
+  //         name: 'Option A',
+  //         src: '/assets/Deep-Fake/22_23__4a.mp4',
+  //         type: 'video/mp4',
+  //         value: 'A'
+  //       },
+  //       {
+  //         name: 'Option B',
+  //         src: '/assets/Deep-Fake/22__4b.mp4',
+  //         type: 'video/mp4',
+  //         value: 'B'
+  //       }]
+  //   },
+  //   {
+  //     answer: 'B',
+  //     number: 5,
+  //     banner: 'assets/Static/guess.png',
+  //     content: [
+  //       {
+  //         name: 'Option A',
+  //         src: '/assets/Deep-Fake/13_03__6a.mp4',
+  //         type: 'video/mp4',
+  //         value: 'A'
+  //       },
+  //       {
+  //         name: 'Option B',
+  //         src: '/assets/Deep-Fake/13__6b.mp4',
+  //         type: 'video/mp4',
+  //         value: 'B'
+  //       }]
+  //   },
+  //   {
+  //     answer: 'A',
+  //     number: 6,
+  //     banner: 'assets/Static/guess.png',
+  //     content: [
+  //       {
+  //         name: 'Option A',
+  //         src: '/assets/Deep-Fake/18__7a.mp4',
+  //         type: 'video/mp4',
+  //         value: 'A'
+  //       },
+  //       {
+  //         name: 'Option B',
+  //         src: '/assets/Deep-Fake/18_04__7b.mp4',
+  //         type: 'video/mp4',
+  //         value: 'B'
+  //       }]
+  //   },
+  //   {
+  //     answer: 'A',
+  //     number: 7,
+  //     banner: 'assets/Static/guess.png',
+  //     content: [
+  //       {
+  //         name: 'Option A',
+  //         src: '/assets/Deep-Fake/04__8a.mp4',
+  //         type: 'video/mp4',
+  //         value: 'A'
+  //       },
+  //       {
+  //         name: 'Option B',
+  //         src: '/assets/Deep-Fake/04_06__8b.mp4',
+  //         type: 'video/mp4',
+  //         value: 'B'
+  //       }]
+  //   },
+  //   {
+  //     answer: 'B',
+  //     number: 8,
+  //     banner: 'assets/Static/guess.png',
+  //     content: [
+  //       {
+  //         name: 'Option A',
+  //         src: '/assets/Deep-Fake/06_04__9a.mp4',
+  //         type: 'video/mp4',
+  //         value: 'A'
+  //       },
+  //       {
+  //         name: 'Option B',
+  //         src: '/assets/Deep-Fake/06__9b.mp4',
+  //         type: 'video/mp4',
+  //         value: 'B'
+  //       }]
+  //   },
+  //   {
+  //     answer: 'A',
+  //     number: 9,
+  //     banner: 'assets/Static/guess.png',
+  //     content: [
+  //       {
+  //         name: 'Option A',
+  //         src: '/assets/Deep-Fake/21__10a.mp4',
+  //         type: 'video/mp4',
+  //         value: 'A'
+  //       },
+  //       {
+  //         name: 'Option B',
+  //         src: '/assets/Deep-Fake/21_09__10b.mp4',
+  //         type: 'video/mp4',
+  //         value: 'B'
+  //       }]
+  //   }
+  // ];
+
+  // Questions = [
+  //   {
+  //     answer: 'B',
+  //     number: 1,
+  //     banner: 'assets/Static/video-banner.png',
+  //     content: [
+  //       {
+  //         name: 'Video Lecture',
+  //         src: '/assets/Video-Lectures/Experiment-Video-1.mp4',
+  //         type: 'video/mp4',
+  //         value: 'A'
+  //       }
+  //     ]
+  //   }
+  // ];
+
   Questions = [
     {
       answer: 'B',
       number: 1,
-      banner: 'assets/Static/guess.png',
+      banner: 'assets/Static/video-banner.png',
       content: [
         {
-          name: 'Option A',
-          src: '/assets/Deep-Fake/03_11__1a.mp4',
+          name: 'Video Lecture',
+          src: '/assets/Video-Lectures/Experiment-Video-2.mp4',
           type: 'video/mp4',
           value: 'A'
-        },
-        {
-          name: 'Option B',
-          src: '/assets/Deep-Fake/03__1b.mp4',
-          type: 'video/mp4',
-          value: 'B'
-        }]
-    },
-    {
-      answer: 'A',
-      number: 2,
-      banner: 'assets/Static/guess.png',
-      content: [
-        {
-          name: 'Option A',
-          src: '/assets/Deep-Fake/10__2a.mp4',
-          type: 'video/mp4',
-          value: 'A'
-        },
-        {
-          name: 'Option B',
-          src: '/assets/Deep-Fake/10_22__2b.mp4',
-          type: 'video/mp4',
-          value: 'B'
-        }]
-    },
-    {
-      answer: 'B',
-      number: 3,
-      banner: 'assets/Static/guess.png',
-      content: [
-        {
-          name: 'Option A',
-          src: '/assets/Deep-Fake/01_11__3a.mp4',
-          type: 'video/mp4',
-          value: 'A'
-        },
-        {
-          name: 'Option B',
-          src: '/assets/Deep-Fake/11__3b.mp4',
-          type: 'video/mp4',
-          value: 'B'
-        }]
-    },
-    {
-      answer: 'B',
-      number: 4,
-      banner: 'assets/Static/guess.png',
-      content: [
-        {
-          name: 'Option A',
-          src: '/assets/Deep-Fake/22_23__4a.mp4',
-          type: 'video/mp4',
-          value: 'A'
-        },
-        {
-          name: 'Option B',
-          src: '/assets/Deep-Fake/22__4b.mp4',
-          type: 'video/mp4',
-          value: 'B'
-        }]
-    },
-    {
-      answer: 'B',
-      number: 5,
-      banner: 'assets/Static/guess.png',
-      content: [
-        {
-          name: 'Option A',
-          src: '/assets/Deep-Fake/13_03__6a.mp4',
-          type: 'video/mp4',
-          value: 'A'
-        },
-        {
-          name: 'Option B',
-          src: '/assets/Deep-Fake/13__6b.mp4',
-          type: 'video/mp4',
-          value: 'B'
-        }]
-    },
-    {
-      answer: 'A',
-      number: 6,
-      banner: 'assets/Static/guess.png',
-      content: [
-        {
-          name: 'Option A',
-          src: '/assets/Deep-Fake/18__7a.mp4',
-          type: 'video/mp4',
-          value: 'A'
-        },
-        {
-          name: 'Option B',
-          src: '/assets/Deep-Fake/18_04__7b.mp4',
-          type: 'video/mp4',
-          value: 'B'
-        }]
-    },
-    {
-      answer: 'A',
-      number: 7,
-      banner: 'assets/Static/guess.png',
-      content: [
-        {
-          name: 'Option A',
-          src: '/assets/Deep-Fake/04__8a.mp4',
-          type: 'video/mp4',
-          value: 'A'
-        },
-        {
-          name: 'Option B',
-          src: '/assets/Deep-Fake/04_06__8b.mp4',
-          type: 'video/mp4',
-          value: 'B'
-        }]
-    },
-    {
-      answer: 'B',
-      number: 8,
-      banner: 'assets/Static/guess.png',
-      content: [
-        {
-          name: 'Option A',
-          src: '/assets/Deep-Fake/06_04__9a.mp4',
-          type: 'video/mp4',
-          value: 'A'
-        },
-        {
-          name: 'Option B',
-          src: '/assets/Deep-Fake/06__9b.mp4',
-          type: 'video/mp4',
-          value: 'B'
-        }]
-    },
-    {
-      answer: 'A',
-      number: 9,
-      banner: 'assets/Static/guess.png',
-      content: [
-        {
-          name: 'Option A',
-          src: '/assets/Deep-Fake/21__10a.mp4',
-          type: 'video/mp4',
-          value: 'A'
-        },
-        {
-          name: 'Option B',
-          src: '/assets/Deep-Fake/21_09__10b.mp4',
-          type: 'video/mp4',
-          value: 'B'
-        }]
+        }
+      ]
     }
   ];
 
@@ -416,537 +449,866 @@ export class ExperimentTestComponent{
 
   ]
   
-  Payload = [
-    {
-      group:[
-        {
-          src: '/assets/Audio/file1.wav' 
-        }, 
-        {
-          src: '/assets/Audio/file18.wav' 
-        },    
-        {
-          src: '/assets/Audio/file29.wav' 
-        } 
-      ]
-    },
-    {
-      group:[ 
-        {
-          src: '/assets/Audio/file2.wav' 
-        },    
-        {
-          src: '/assets/Audio/file41.wav' 
-        },        
-        {
-          src: '/assets/Audio/file46.wav' 
-        }
-
-      ]
-    },
-    {
-      group:[
-        {
-          src: '/assets/Audio/file3.wav' 
-        },    
-        {
-          src: '/assets/Audio/file25.wav' 
-        }, 
-        {
-          src: '/assets/Audio/file33.wav' 
-        }
-      ]
-    },
-    {
-      group:[
-        {
-          src: '/assets/Audio/file4.wav' 
-        },    
-        {
-          src: '/assets/Audio/file24.wav' 
-        }, 
-        {
-          src: '/assets/Audio/file38.wav' 
-        }
-      ]
-    },
-    {
-      group:[
-        {
-          src: '/assets/Audio/file5.wav' 
-        },    
-        {
-          src: '/assets/Audio/file32.wav' 
-        }
-      ]
-    }//,
-    /*{
-      group:[
-        {
-          src: '/assets/Audio/file6.wav' 
-        },    
-        {
-          src: '/assets/Audio/file21.wav' 
-        }, 
-        {
-          src: '/assets/Audio/file39.wav' 
-        }
-      ]
-    },
-    {
-      group:[
-        {
-          src: '/assets/Audio/file7.wav' 
-        },    
-        {
-          src: '/assets/Audio/file34.wav' 
-        }, 
-        {
-          src: '/assets/Audio/file46.wav' 
-        }
-      ]
-    },
-    {
-      group:[
-        {
-          src: '/assets/Audio/file8.wav' 
-        },    
-        {
-          src: '/assets/Audio/file20.wav' 
-        }, 
-        {
-          src: '/assets/Audio/file33.wav' 
-        }
-      ]
-    },
-    {
-      group:[
-        {
-          src: '/assets/Audio/file9.wav' 
-        },    
-        {
-          src: '/assets/Audio/file26.wav' 
-        }, 
-        {
-          src: '/assets/Audio/file31.wav' 
-        }
-      ]
-    },
-    {
-      group:[
-        {
-          src: '/assets/Audio/file10.wav' 
-        },    
-        {
-          src: '/assets/Audio/file22.wav' 
-        }, 
-        {
-          src: '/assets/Audio/file31.wav' 
-        }
-      ]
-    },
-    {
-      group:[
-        {
-          src: '/assets/Audio/file11.wav' 
-        },    
-        {
-          src: '/assets/Audio/file36.wav' 
-        }, 
-        {
-          src: '/assets/Audio/file37.wav' 
-        }
-      ]
-    },
-    {
-      group:[
-        {
-          src: '/assets/Audio/file12.wav' 
-        },    
-        {
-          src: '/assets/Audio/file44.wav' 
-        }, 
-        {
-          src: '/assets/Audio/file49.wav' 
-        }
-      ]
-    },
-    {
-      group:[
-        {
-          src: '/assets/Audio/file13.wav' 
-        },    
-        {
-          src: '/assets/Audio/file19.wav' 
-        }, 
-      ]
-    },
-    {
-      group:[
-        {
-          src: '/assets/Audio/file14.wav' 
-        },    
-        {
-          src: '/assets/Audio/file43.wav' 
-        }, 
-        {
-          src: '/assets/Audio/file47.wav' 
-        }
-      ]
-    },
-    {
-      group:[
-        {
-          src: '/assets/Audio/file15.wav' 
-        },    
-        {
-          src: '/assets/Audio/file39.wav' 
-        }, 
-        {
-          src: '/assets/Audio/file37.wav' 
-        }
-      ]
-    },
-    {
-      group:[
-        {
-          src: '/assets/Audio/file16.wav' 
-        },    
-        {
-          src: '/assets/Audio/file42.wav' 
-        }, 
-        {
-          src: '/assets/Audio/file50.wav' 
-        }
-      ]
-    },
-    {
-      group:[
-        {
-          src: '/assets/Audio/file17.wav' 
-        },    
-        {
-          src: '/assets/Audio/file27.wav' 
-        }, 
-        {
-          src: '/assets/Audio/file49.wav' 
-        }
-      ]
-    },
-    {
-      group:[
-        {
-          src: '/assets/Audio/file23.wav' 
-        },    
-        {
-          src: '/assets/Audio/file28.wav' 
-        }, 
-        {
-          src: '/assets/Audio/file30.wav' 
-        },
-        {
-          src: '/assets/Audio/file35.wav' 
-        },
-        {
-          src: '/assets/Audio/file40.wav' 
-        },
-        {
-          src: '/assets/Audio/file45.wav' 
-        },
-        {
-          src: '/assets/Audio/file48.wav' 
-        }
-      ]
-    }*/
-  ]
-
   // Payload = [
   //   {
   //     group:[
   //       {
-  //         src: '/assets/Color-Label/1b.png' 
-  //       },
+  //         src: '/assets/Audio/file1.wav' 
+  //       }, 
   //       {
-  //         src: '/assets/Color-Label/1g.png' 
-  //       },
+  //         src: '/assets/Audio/file18.wav' 
+  //       },    
   //       {
-  //         src: '/assets/Color-Label/1r.png'  
-  //       },
+  //         src: '/assets/Audio/file29.wav' 
+  //       } 
+  //     ]
+  //   },
+  //   {
+  //     group:[ 
   //       {
-  //         src: '/assets/Color-Label/1w.png' 
-  //       },
+  //         src: '/assets/Audio/file2.wav' 
+  //       },    
   //       {
-  //         src: '/assets/Color-Label/1y.png'  
+  //         src: '/assets/Audio/file41.wav' 
+  //       },        
+  //       {
+  //         src: '/assets/Audio/file46.wav' 
+  //       }
+
+  //     ]
+  //   },
+  //   {
+  //     group:[
+  //       {
+  //         src: '/assets/Audio/file3.wav' 
+  //       },    
+  //       {
+  //         src: '/assets/Audio/file25.wav' 
+  //       }, 
+  //       {
+  //         src: '/assets/Audio/file33.wav' 
   //       }
   //     ]
   //   },
   //   {
   //     group:[
   //       {
-  //         src: '/assets/Color-Label/2b.png' 
-  //       },
+  //         src: '/assets/Audio/file4.wav' 
+  //       },    
   //       {
-  //         src: '/assets/Color-Label/2g.png' 
-  //       },
+  //         src: '/assets/Audio/file24.wav' 
+  //       }, 
   //       {
-  //         src: '/assets/Color-Label/2r.png'  
-  //       },
-  //       {
-  //         src: '/assets/Color-Label/2w.png' 
-  //       },
-  //       {
-  //         src: '/assets/Color-Label/2y.png'  
+  //         src: '/assets/Audio/file38.wav' 
   //       }
   //     ]
   //   },
   //   {
   //     group:[
   //       {
-  //         src: '/assets/Color-Label/3b.png' 
-  //       },
+  //         src: '/assets/Audio/file5.wav' 
+  //       },    
   //       {
-  //         src: '/assets/Color-Label/3g.png' 
-  //       },
+  //         src: '/assets/Audio/file32.wav' 
+  //       }
+  //     ]
+  //   }//,
+  //   /*{
+  //     group:[
   //       {
-  //         src: '/assets/Color-Label/3r.png'  
-  //       },
+  //         src: '/assets/Audio/file6.wav' 
+  //       },    
   //       {
-  //         src: '/assets/Color-Label/3w.png' 
-  //       },
+  //         src: '/assets/Audio/file21.wav' 
+  //       }, 
   //       {
-  //         src: '/assets/Color-Label/3y.png'  
+  //         src: '/assets/Audio/file39.wav' 
   //       }
   //     ]
   //   },
   //   {
   //     group:[
   //       {
-  //         src: '/assets/Color-Label/4b.png' 
-  //       },
+  //         src: '/assets/Audio/file7.wav' 
+  //       },    
   //       {
-  //         src: '/assets/Color-Label/4g.png' 
-  //       },
+  //         src: '/assets/Audio/file34.wav' 
+  //       }, 
   //       {
-  //         src: '/assets/Color-Label/4r.png'  
-  //       },
-  //       {
-  //         src: '/assets/Color-Label/4w.png' 
-  //       },
-  //       {
-  //         src: '/assets/Color-Label/4y.png'  
+  //         src: '/assets/Audio/file46.wav' 
   //       }
   //     ]
   //   },
   //   {
   //     group:[
   //       {
-  //         src: '/assets/Color-Label/5b.png' 
-  //       },
+  //         src: '/assets/Audio/file8.wav' 
+  //       },    
   //       {
-  //         src: '/assets/Color-Label/5g.png' 
-  //       },
+  //         src: '/assets/Audio/file20.wav' 
+  //       }, 
   //       {
-  //         src: '/assets/Color-Label/5r.png'  
-  //       },
-  //       {
-  //         src: '/assets/Color-Label/5w.png' 
-  //       },
-  //       {
-  //         src: '/assets/Color-Label/5y.png'  
+  //         src: '/assets/Audio/file33.wav' 
   //       }
   //     ]
   //   },
   //   {
   //     group:[
   //       {
-  //         src: '/assets/Color-Label/6b.png' 
-  //       },
+  //         src: '/assets/Audio/file9.wav' 
+  //       },    
   //       {
-  //         src: '/assets/Color-Label/6g.png' 
-  //       },
+  //         src: '/assets/Audio/file26.wav' 
+  //       }, 
   //       {
-  //         src: '/assets/Color-Label/6r.png'  
-  //       },
-  //       {
-  //         src: '/assets/Color-Label/6w.png' 
-  //       },
-  //       {
-  //         src: '/assets/Color-Label/6y.png'  
+  //         src: '/assets/Audio/file31.wav' 
   //       }
   //     ]
   //   },
   //   {
   //     group:[
   //       {
-  //         src: '/assets/Color-Label/7b.png' 
-  //       },
+  //         src: '/assets/Audio/file10.wav' 
+  //       },    
   //       {
-  //         src: '/assets/Color-Label/7g.png' 
-  //       },
+  //         src: '/assets/Audio/file22.wav' 
+  //       }, 
   //       {
-  //         src: '/assets/Color-Label/7r.png'  
-  //       },
-  //       {
-  //         src: '/assets/Color-Label/7w.png' 
-  //       },
-  //       {
-  //         src: '/assets/Color-Label/7y.png'  
+  //         src: '/assets/Audio/file31.wav' 
   //       }
   //     ]
   //   },
   //   {
   //     group:[
   //       {
-  //         src: '/assets/Color-Label/8b.png' 
-  //       },
+  //         src: '/assets/Audio/file11.wav' 
+  //       },    
   //       {
-  //         src: '/assets/Color-Label/8g.png' 
-  //       },
+  //         src: '/assets/Audio/file36.wav' 
+  //       }, 
   //       {
-  //         src: '/assets/Color-Label/8r.png'  
-  //       },
-  //       {
-  //         src: '/assets/Color-Label/8w.png' 
-  //       },
-  //       {
-  //         src: '/assets/Color-Label/8y.png'  
+  //         src: '/assets/Audio/file37.wav' 
   //       }
   //     ]
   //   },
   //   {
   //     group:[
   //       {
-  //         src: '/assets/Color-Label/9b.png' 
-  //       },
+  //         src: '/assets/Audio/file12.wav' 
+  //       },    
   //       {
-  //         src: '/assets/Color-Label/9g.png' 
-  //       },
+  //         src: '/assets/Audio/file44.wav' 
+  //       }, 
   //       {
-  //         src: '/assets/Color-Label/9r.png'  
-  //       },
-  //       {
-  //         src: '/assets/Color-Label/9w.png' 
-  //       },
-  //       {
-  //         src: '/assets/Color-Label/9y.png'  
+  //         src: '/assets/Audio/file49.wav' 
   //       }
   //     ]
   //   },
   //   {
   //     group:[
   //       {
-  //         src: '/assets/Color-Label/10b.png' 
-  //       },
+  //         src: '/assets/Audio/file13.wav' 
+  //       },    
   //       {
-  //         src: '/assets/Color-Label/10g.png' 
-  //       },
+  //         src: '/assets/Audio/file19.wav' 
+  //       }, 
+  //     ]
+  //   },
+  //   {
+  //     group:[
   //       {
-  //         src: '/assets/Color-Label/10r.png'  
-  //       },
+  //         src: '/assets/Audio/file14.wav' 
+  //       },    
   //       {
-  //         src: '/assets/Color-Label/10w.png' 
-  //       },
+  //         src: '/assets/Audio/file43.wav' 
+  //       }, 
   //       {
-  //         src: '/assets/Color-Label/10y.png'  
+  //         src: '/assets/Audio/file47.wav' 
   //       }
   //     ]
   //   },
   //   {
   //     group:[
   //       {
-  //         src: '/assets/Color-Label/11b.png' 
-  //       },
+  //         src: '/assets/Audio/file15.wav' 
+  //       },    
   //       {
-  //         src: '/assets/Color-Label/11g.png' 
-  //       },
+  //         src: '/assets/Audio/file39.wav' 
+  //       }, 
   //       {
-  //         src: '/assets/Color-Label/11r.png'  
-  //       },
-  //       {
-  //         src: '/assets/Color-Label/11w.png' 
-  //       },
-  //       {
-  //         src: '/assets/Color-Label/11y.png'  
+  //         src: '/assets/Audio/file37.wav' 
   //       }
   //     ]
   //   },
   //   {
   //     group:[
   //       {
-  //         src: '/assets/Color-Label/12b.png' 
-  //       },
+  //         src: '/assets/Audio/file16.wav' 
+  //       },    
   //       {
-  //         src: '/assets/Color-Label/12g.png' 
-  //       },
+  //         src: '/assets/Audio/file42.wav' 
+  //       }, 
   //       {
-  //         src: '/assets/Color-Label/12r.png'  
-  //       },
-  //       {
-  //         src: '/assets/Color-Label/12w.png' 
-  //       },
-  //       {
-  //         src: '/assets/Color-Label/12y.png'  
+  //         src: '/assets/Audio/file50.wav' 
   //       }
   //     ]
   //   },
   //   {
   //     group:[
   //       {
-  //         src: '/assets/Color-Label/13b.png' 
-  //       },
+  //         src: '/assets/Audio/file17.wav' 
+  //       },    
   //       {
-  //         src: '/assets/Color-Label/13g.png' 
-  //       },
+  //         src: '/assets/Audio/file27.wav' 
+  //       }, 
   //       {
-  //         src: '/assets/Color-Label/13r.png'  
-  //       },
-  //       {
-  //         src: '/assets/Color-Label/13w.png' 
-  //       },
-  //       {
-  //         src: '/assets/Color-Label/13y.png'  
+  //         src: '/assets/Audio/file49.wav' 
   //       }
   //     ]
   //   },
   //   {
   //     group:[
   //       {
-  //         src: '/assets/Color-Label/14b.png' 
+  //         src: '/assets/Audio/file23.wav' 
+  //       },    
+  //       {
+  //         src: '/assets/Audio/file28.wav' 
+  //       }, 
+  //       {
+  //         src: '/assets/Audio/file30.wav' 
   //       },
   //       {
-  //         src: '/assets/Color-Label/14g.png' 
+  //         src: '/assets/Audio/file35.wav' 
   //       },
   //       {
-  //         src: '/assets/Color-Label/14r.png'  
+  //         src: '/assets/Audio/file40.wav' 
   //       },
   //       {
-  //         src: '/assets/Color-Label/14w.png' 
+  //         src: '/assets/Audio/file45.wav' 
   //       },
   //       {
-  //         src: '/assets/Color-Label/14y.png'  
+  //         src: '/assets/Audio/file48.wav' 
   //       }
   //     ]
+  //   }*/
+  // ]
+
+  Payload = [
+    {
+      group:[
+        {
+          src: '/assets/Static/red-screen.png' 
+        },
+        {
+          src: '/assets/Static/yellow-screen.jpg' 
+        },
+        {
+          src: '/assets/Static/green-screen.png'  
+        },
+        {
+          src: '/assets/Static/blue-screen.png' 
+        },
+        {
+          src: '/assets/Static/black-screen.jpg'  
+        },
+        {
+          src: '/assets/Static/white-screen.png'  
+        }
+      ]
+    },
+    {
+      group:[
+        {
+          src: '/assets/Color-Label/1b.png' 
+        },
+        {
+          src: '/assets/Color-Label/1g.png' 
+        },
+        {
+          src: '/assets/Color-Label/1r.png'  
+        },
+        {
+          src: '/assets/Color-Label/1w.png' 
+        },
+        {
+          src: '/assets/Color-Label/1y.png'  
+        }
+      ]
+    },
+    {
+      group:[
+        {
+          src: '/assets/Color-Label/2b.png' 
+        },
+        {
+          src: '/assets/Color-Label/2g.png' 
+        },
+        {
+          src: '/assets/Color-Label/2r.png'  
+        },
+        {
+          src: '/assets/Color-Label/2w.png' 
+        },
+        {
+          src: '/assets/Color-Label/2y.png'  
+        }
+      ]
+    },
+    {
+      group:[
+        {
+          src: '/assets/Color-Label/3b.png' 
+        },
+        {
+          src: '/assets/Color-Label/3g.png' 
+        },
+        {
+          src: '/assets/Color-Label/3r.png'  
+        },
+        {
+          src: '/assets/Color-Label/3w.png' 
+        },
+        {
+          src: '/assets/Color-Label/3y.png'  
+        }
+      ]
+    },
+    {
+      group:[
+        {
+          src: '/assets/Color-Label/4b.png' 
+        },
+        {
+          src: '/assets/Color-Label/4g.png' 
+        },
+        {
+          src: '/assets/Color-Label/4r.png'  
+        },
+        {
+          src: '/assets/Color-Label/4w.png' 
+        },
+        {
+          src: '/assets/Color-Label/4y.png'  
+        }
+      ]
+    },
+    {
+      group:[
+        {
+          src: '/assets/Color-Label/5b.png' 
+        },
+        {
+          src: '/assets/Color-Label/5g.png' 
+        },
+        {
+          src: '/assets/Color-Label/5r.png'  
+        },
+        {
+          src: '/assets/Color-Label/5w.png' 
+        },
+        {
+          src: '/assets/Color-Label/5y.png'  
+        }
+      ]
+    },
+    {
+      group:[
+        {
+          src: '/assets/Color-Label/6b.png' 
+        },
+        {
+          src: '/assets/Color-Label/6g.png' 
+        },
+        {
+          src: '/assets/Color-Label/6r.png'  
+        },
+        {
+          src: '/assets/Color-Label/6w.png' 
+        },
+        {
+          src: '/assets/Color-Label/6y.png'  
+        }
+      ]
+    },
+    {
+      group:[
+        {
+          src: '/assets/Color-Label/7b.png' 
+        },
+        {
+          src: '/assets/Color-Label/7g.png' 
+        },
+        {
+          src: '/assets/Color-Label/7r.png'  
+        },
+        {
+          src: '/assets/Color-Label/7w.png' 
+        },
+        {
+          src: '/assets/Color-Label/7y.png'  
+        }
+      ]
+    },
+    {
+      group:[
+        {
+          src: '/assets/Color-Label/8b.png' 
+        },
+        {
+          src: '/assets/Color-Label/8g.png' 
+        },
+        {
+          src: '/assets/Color-Label/8r.png'  
+        },
+        {
+          src: '/assets/Color-Label/8w.png' 
+        },
+        {
+          src: '/assets/Color-Label/8y.png'  
+        }
+      ]
+    },
+    {
+      group:[
+        {
+          src: '/assets/Color-Label/9b.png' 
+        },
+        {
+          src: '/assets/Color-Label/9g.png' 
+        },
+        {
+          src: '/assets/Color-Label/9r.png'  
+        },
+        {
+          src: '/assets/Color-Label/9w.png' 
+        },
+        {
+          src: '/assets/Color-Label/9y.png'  
+        }
+      ]
+    },
+    {
+      group:[
+        {
+          src: '/assets/Color-Label/10b.png' 
+        },
+        {
+          src: '/assets/Color-Label/10g.png' 
+        },
+        {
+          src: '/assets/Color-Label/10r.png'  
+        },
+        {
+          src: '/assets/Color-Label/10w.png' 
+        },
+        {
+          src: '/assets/Color-Label/10y.png'  
+        }
+      ]
+    },
+    {
+      group:[
+        {
+          src: '/assets/Color-Label/11b.png' 
+        },
+        {
+          src: '/assets/Color-Label/11g.png' 
+        },
+        {
+          src: '/assets/Color-Label/11r.png'  
+        },
+        {
+          src: '/assets/Color-Label/11w.png' 
+        },
+        {
+          src: '/assets/Color-Label/11y.png'  
+        }
+      ]
+    },
+    {
+      group:[
+        {
+          src: '/assets/Color-Label/12b.png' 
+        },
+        {
+          src: '/assets/Color-Label/12g.png' 
+        },
+        {
+          src: '/assets/Color-Label/12r.png'  
+        },
+        {
+          src: '/assets/Color-Label/12w.png' 
+        },
+        {
+          src: '/assets/Color-Label/12y.png'  
+        }
+      ]
+    },
+    {
+      group:[
+        {
+          src: '/assets/Color-Label/13b.png' 
+        },
+        {
+          src: '/assets/Color-Label/13g.png' 
+        },
+        {
+          src: '/assets/Color-Label/13r.png'  
+        },
+        {
+          src: '/assets/Color-Label/13w.png' 
+        },
+        {
+          src: '/assets/Color-Label/13y.png'  
+        }
+      ]
+    },
+    {
+      group:[
+        {
+          src: '/assets/Color-Label/14b.png' 
+        },
+        {
+          src: '/assets/Color-Label/14g.png' 
+        },
+        {
+          src: '/assets/Color-Label/14r.png'  
+        },
+        {
+          src: '/assets/Color-Label/14w.png' 
+        },
+        {
+          src: '/assets/Color-Label/14y.png'  
+        }
+      ]
+    },
+    {
+      group:[
+        {
+          src: '/assets/Color-Label/15b.png' 
+        },
+        {
+          src: '/assets/Color-Label/15g.png' 
+        },
+        {
+          src: '/assets/Color-Label/15r.png'  
+        },
+        {
+          src: '/assets/Color-Label/15w.png' 
+        },
+        {
+          src: '/assets/Color-Label/15y.png'  
+        }
+      ]
+    }
+  ]
+
+  PerceptionPayload = [
+    {
+      src: '/assets/Audio/file1.wav' 
+    },
+    {
+      src: '/assets/Audio/file2.wav' 
+    },
+    {
+      src: '/assets/Audio/file3.wav' 
+    },
+    {
+      src: '/assets/Audio/file4.wav' 
+    },
+    {
+      src: '/assets/Audio/file5.wav' 
+    },
+    {
+      src: '/assets/Audio/file6.wav' 
+    },
+    {
+      src: '/assets/Audio/file7.wav' 
+    },
+    {
+      src: '/assets/Audio/file8.wav' 
+    },
+    {
+      src: '/assets/Audio/file9.wav' 
+    },
+    {
+      src: '/assets/Audio/file10.wav' 
+    },
+    {
+      src: '/assets/Audio/file11.wav' 
+    },
+    {
+      src: '/assets/Audio/file12.wav' 
+    },
+    {
+      src: '/assets/Audio/file13.wav' 
+    },
+    {
+      src: '/assets/Audio/file14.wav' 
+    },
+    {
+      src: '/assets/Audio/file15.wav' 
+    },
+    {
+      src: '/assets/Audio/file16.wav' 
+    },
+    {
+      src: '/assets/Audio/file17.wav' 
+    },
+    {
+      src: '/assets/Audio/file18.wav' 
+    },
+    {
+      src: '/assets/Audio/file19.wav' 
+    }
+  ]
+
+  // PerceptionPayload = [
+  //   {
+  //     src: '/assets/Static/red-screen.png' 
   //   },
   //   {
-  //     group:[
-  //       {
-  //         src: '/assets/Color-Label/15b.png' 
-  //       },
-  //       {
-  //         src: '/assets/Color-Label/15g.png' 
-  //       },
-  //       {
-  //         src: '/assets/Color-Label/15r.png'  
-  //       },
-  //       {
-  //         src: '/assets/Color-Label/15w.png' 
-  //       },
-  //       {
-  //         src: '/assets/Color-Label/15y.png'  
-  //       }
-  //     ]
+  //     src: '/assets/Static/yellow-screen.jpg' 
+  //   },
+  //   {
+  //     src: '/assets/Static/green-screen.png'  
+  //   },
+  //   {
+  //     src: '/assets/Static/blue-screen.png' 
+  //   },
+  //   {
+  //     src: '/assets/Static/black-screen.jpg'  
+  //   },
+  //   {
+  //     src: '/assets/Static/white-screen.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/1b.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/1g.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/1r.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/1w.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/1y.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/2b.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/2g.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/2r.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/2w.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/2y.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/3b.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/3g.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/3r.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/3w.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/3y.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/4b.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/4g.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/4r.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/4w.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/4y.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/5b.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/5g.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/5r.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/5w.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/5y.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/6b.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/6g.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/6r.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/6w.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/6y.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/7b.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/7g.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/7r.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/7w.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/7y.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/8b.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/8g.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/8r.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/8w.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/8y.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/9b.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/9g.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/9r.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/9w.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/9y.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/10b.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/10g.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/10r.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/10w.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/10y.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/11b.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/11g.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/11r.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/11w.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/11y.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/12b.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/12g.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/12r.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/12w.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/12y.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/13b.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/13g.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/13r.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/13w.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/13y.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/14b.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/14g.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/14r.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/14w.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/14y.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/15b.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/15g.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/15r.png'  
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/15w.png' 
+  //   },
+  //   {
+  //     src: '/assets/Color-Label/15y.png'  
   //   }
   // ]
+
 
   LoadingImage = "/assets/Static/listen.png"
   GuessImage = 'assets/Static/guess.png'
@@ -1054,10 +1416,14 @@ export class ExperimentTestComponent{
         else if(mode == 5){
           this.SetEvent('Grey-Screen-End');
         }
+        
+        else if(mode == 6){
+          this.SetEvent('Eyes-Closed-End');
+        }
         this.timeLeft = timeSet;
         this.current = 0;
         clearInterval(this.interval);
-        this.Stepper.next();
+        if(mode != 6) this.Stepper.next();
       }
     },1000)
   }
@@ -1119,5 +1485,46 @@ export class ExperimentTestComponent{
     //   console.log(data);
     // })     
   }
+
+  // Set up Valence Slider
+  ValenceValue: number = 3;
+  ValenceOptions: Options = {
+    showTicksValues: true,
+    stepsArray: [
+      { value: 1, legend: "Negative" },
+      { value: 2 },
+      { value: 3 },
+      { value: 4 },
+      { value: 5, legend: "Positive" }
+    ]
+  };
+
+  // Set up Arousal Slider
+  ArousalValue: number = 3;
+  ArousalOptions: Options = {
+    showTicksValues: true,
+    stepsArray: [
+      { value: 1, legend: "Relaxed" },
+      { value: 2 },
+      { value: 3 },
+      { value: 4 },
+      { value: 5, legend: "Stimulated" }
+    ]
+  };
+
+  // Set up Dominance Slider
+  DominanceValue: number = 3;
+  DominanceOptions: Options = {
+    showTicksValues: true,
+    stepsArray: [
+      { value: 1, legend: "Overwhelmed" },
+      { value: 2 },
+      { value: 3 },
+      { value: 4 },
+      { value: 5, legend: "Whelmed" }
+    ]
+  };
+
+  // Reset Values of Sliders
 
 }

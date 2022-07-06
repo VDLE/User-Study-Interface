@@ -3,184 +3,108 @@
 
         <mat-card-header>
             <mat-card-title>Follow the instructions as indicated by your experiment. </mat-card-title>
-            <mat-card-subtitle>Remember to reduce head movement!</mat-card-subtitle>
+            <!-- <mat-card-subtitle>Remember to reduce head movement!</mat-card-subtitle> -->
         </mat-card-header>
         <mat-card-content>
             <mat-horizontal-stepper #InnerStepper class="Inner-Stepper" >
 
-                <!-- Baseline Phase -->
-                <mat-step>
-                    <h1>Begin Eye Baseline</h1>
-                    <button mat-button matStepperNext>Start Eye Baseline</button>
-                </mat-step>
+                <div *ngIf="Experiment == 'Mash-Ups-Perception' || Experiment == 'Color-Association'">
 
-                <!-- Eyes Open and Closed -->
-                <div *ngIf="Experiment != 'Deepfake-Recognition'">
-                    <mat-step>
-                        <div class="Wait-Period">
-                            <h3>Hey, keep your eyes open for 60 seconds!</h3>
-                            <img 
-                                height="200" 
-                                width="600" 
-                                [lazyLoad]="'assets/Static/eyes-open.jpg'"
-                                (load)="SetEvent('Eyes-Open-Start'); startTimer(2,60,60);"
-                                >
-                            <round-progress
-                                [current]="current"
-                                [max]="max"
-                                [color]="gradient ? 'url(#gradient)' : color"
-                                [background]="background"
-                                [radius]="radius"
-                                [stroke]="stroke"
-                                [semicircle]="semicircle"
-                                [rounded]="rounded"
-                                [clockwise]="clockwise"
-                                [responsive]="responsive"
-                                [duration]="duration"
-                                [animation]="animation"
-                                [animationDelay]="animationDelay"
-                                style="left:33%;"
-                                >
-                            </round-progress>
-                            <h3>Keep them open for just {{timeLeft}} more seconds. You're almost there!</h3>
-                        </div>
-                    </mat-step>
-    
-                    <mat-step>
-                        <div class="Wait-Period">
-                            <h3>Hey, keep your eyes closed for 60 seconds!</h3>
-                            <img 
-                                height="200" 
-                                width="600" 
-                                [lazyLoad]="'assets/Static/eyes-closed.jpg'" 
-                                (load)="SetEvent('Eyes-Closed-Start'); startTimer(3,60,60);">
-                            <round-progress
-                                [current]="current"
-                                [max]="max"
-                                [color]="gradient ? 'url(#gradient)' : color"
-                                [background]="background"
-                                [radius]="radius"
-                                [stroke]="stroke"
-                                [semicircle]="semicircle"
-                                [rounded]="rounded"
-                                [clockwise]="clockwise"
-                                [responsive]="responsive"
-                                [duration]="duration"
-                                [animation]="animation"
-                                [animationDelay]="animationDelay"
-                                style="left:33%;">
-                            </round-progress>
-                            <h3>Keep them closed for just {{timeLeft}} more seconds. You're almost there!</h3>
-                        </div>
-                    </mat-step>
-                </div>
+                    <div>
 
-                <mat-step>
-                    <h1>Begin IAPS</h1>
-                    <button mat-button matStepperNext>Start IAPS</button>
-                </mat-step>
+                        <div *ngFor="let data of PerceptionPayload; let i = index">
+                            <!-- <mat-step [ngModelGroup]="(i+1).toString()" #ELabelValid="ngModelGroup"> -->
+                            <mat-step [ngModelGroup]="(i+1).toString()" #ELabelValid="ngModelGroup">
 
-                <!-- IAPS Phase -->
-                <div *ngIf="Experiment != 'Deepfake-Recognition'">
-                    <div *ngFor="let data of IAPSdata; let i = index">
-                        <mat-step *ngFor="let group of data.group; let j = index">
-                            <div>
-                                <h3>Focus on the following images</h3>
-                                <img height="400" width="800" [lazyLoad]="group.src" 
-                                    (load)="SetEvent('C' + (i+1).toString() + '-I' + (j+1).toString() + '-Start'); InnerStepperNext('C'+(i+1).toString(),'I'+(j+1).toString(),5000)">
-                            </div>
-                        </mat-step>
-                        <mat-step>
-                            <div>
-                                <h3>Hey, let's take a 5 second break!</h3>
-                                <img height="400" width="800" [lazyLoad]="'assets/Static/grey-screen.jpg'" 
-                                    (load)="SetEvent('Grey-Screen-' + (i+1).toString() + '-Start'); InnerStepperNext('Grey-Screen',(i+1).toString(),5000)">
-                            </div>
-                        </mat-step>
-                    </div>
-                </div>
+                                <h3 *ngIf="Experiment == 'Color-Association'">Take a look at the image and fill out the survey below.</h3>
+                                <h3 *ngIf="Experiment == 'Mash-Ups-Perception'">Listen to the music and fill out the survey below.</h3>
 
-                <!-- Start Experiment -->
-                <mat-step>
-                    <h1>Start the Experiment when ready</h1>
-                    <button  mat-button matStepperNext>Start Experiment</button>
-                </mat-step>
+                                <div *ngIf="Experiment == 'Color-Association'">
 
-                <!-- Deepfake Experiment -->
-                <div *ngIf="Experiment == 'Deepfake-Recognition'">
-                    <div *ngFor="let question of Questions; let $index = index" class="Wait-Period">
-                        <mat-step [ngModelGroup]="($index+1).toString()" #QuestionValid="ngModelGroup">
-                            <ng-template matStepContent>
+                                    <img height="400" width="800" [lazyLoad]="data.src">
+                                </div>
 
-                                <img height="75" width="600" [lazyLoad]="question.banner" 
-                                (load)="SetEvent('Task-' + ($index+1).toString() + '-Start');">
-
-                                <br/>
-
-                                <!-- Toggle Group -->
-                                <mat-button-toggle-group name="fontStyle" aria-label="Font Style" value="question.content[0].value">
-                                    <mat-button-toggle *ngFor="let vdo of question.content; let $index = index"
-                                    (change)="startPlaylistVdo(vdo, $index)" [class.selected]="vdo === currentVideo"
-                                    value="vgo.value">{{ vdo.name }}</mat-button-toggle>
-
-                                <!-- Video Player -->
-                                </mat-button-toggle-group>
-                                <div class="video-player-wrapper" style="margin-top: 5px;">
-                                    <vg-player (onPlayerReady)="videoPlayerInit($event)">
-                                    <vg-overlay-play></vg-overlay-play>
-                                    <vg-buffering></vg-buffering>
-                                    <vg-scrub-bar>
-                                        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-                                        <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
-                                    </vg-scrub-bar>
-                                    <vg-controls>
-                                        <vg-play-pause></vg-play-pause>
-                                        <vg-playback-button></vg-playback-button>
-                                        <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
-                                        <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
-                                        <vg-mute></vg-mute>
-                                        <vg-volume></vg-volume>
-                                        <vg-fullscreen></vg-fullscreen>
-                                    </vg-controls>
-                                    <video #media [vgMedia]="$any(media)" [src]="currentVideo.src" id="singleVideo" crossorigin>
-                                    </video>
-                                    </vg-player>
+                                <div *ngIf="Experiment == 'Mash-Ups-Perception'">
+                                    <audio class="Music-Player" (ended)="NextSwitch = true" controls>
+                                        <source src="{{data.src}}" type="audio/wav">
+                                        Your browser does not support the audio tag.
+                                    </audio>
                                 </div>
 
                                 <!-- Input Section -->
-                                <div class="Test-Inputs">
-                                    <mat-radio-group aria-label="Select an option" name="Answer" ngModel required>
-                                        <mat-radio-button *ngFor="let vdo of question.content; let $index = index" 
-                                        [value]="vdo.value" (click)="print($index)" style="margin-right: 5px;">
-                                            {{ vdo.name }}
-                                        </mat-radio-button>
-                                    </mat-radio-group>
+                                <div style="margin-left: 5%">
+                                    <div class="Slider-Size">
+                                        <ngx-slider [options]="ValenceOptions" style="width: 75%; margin-top: 50px;" name="Valence" ngModel #Valence></ngx-slider>
+                                        <img height="92" width="98" [lazyLoad]="'assets/SAM/valence'+ (Valence.value-1) +'.png'" style="margin-left: 40px;">
+                                    </div>
+                                    <div class="Slider-Size">
+                                        <ngx-slider [options]="ArousalOptions" style="width: 75%; margin-top: 50px;" name="Arousal" ngModel #Arousal></ngx-slider>
+                                        <img height="92" width="98" [lazyLoad]="'assets/SAM/arousal'+ (Arousal.value-1) +'.png'" style="margin-left: 40px;">
+                                    </div>
+                                    <div class="Slider-Size">
+                                        <ngx-slider [options]="DominanceOptions" style="width: 75%; margin-top: 50px;" name="Dominance" ngModel #Dominance></ngx-slider>
+                                        <img height="92" width="98" [lazyLoad]="'assets/SAM/dominance'+ (Dominance.value-1) +'.png'" style="margin-left: 40px;">
+                                    </div>
                                 </div>
-                                
-                                <!-- Next Button -->
-                                <button *ngIf="QuestionValid.valid" mat-button matStepperNext 
-                                (click)="$index == (Questions.length-1) ? 0 : SetEvent('Task-' + ($index+1).toString() + '-End'); Loop();">Next</button>
-                            </ng-template>
-                        </mat-step>
 
+                                <!-- Next Button -->
+                                <button (click)="NextSwitch = false" *ngIf="Experiment == 'Mash-Ups-Perception' && NextSwitch == true && i != (PerceptionPayload.length-1)" mat-button matStepperNext>Next</button>
+                                <button *ngIf="Experiment == 'Color-Association' && i != (Payload.length-1)" 
+                                mat-button matStepperNext>Next</button>
+
+                            </mat-step>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="Experiment != 'Mash-Ups-Perception' && Experiment != 'Color-Association'">
+                    <!-- Baseline Phase -->
+                    <mat-step>
+                        <h1>Begin Eye Baseline</h1>
+                        <button mat-button matStepperNext>Start Eye Baseline</button>
+                    </mat-step>
+
+                    <!-- Eyes Open and Closed -->
+                    <div *ngIf="Experiment != 'Video-Lecture-WPEB-200'">
                         <mat-step>
                             <div class="Wait-Period">
-                                <h1 class="c2">The answer is {{question.answer}}</h1>
-                                <img height="300" width="600" [lazyLoad]="'assets/Static/yay-happy.gif'" 
-                                    (load)="SetEvent('Reveal-Screen-' + ($index+1).toString() + '-Start'); InnerStepperNext('Reveal-Screen',($index+1).toString(),10000)">
+                                <h3>Hey, keep your eyes open for 60 seconds!</h3>
+                                <img 
+                                    height="200" 
+                                    width="600" 
+                                    [lazyLoad]="'assets/Static/eyes-open.jpg'"
+                                    (load)="SetEvent('Eyes-Open-Start'); startTimer(2,60,60);"
+                                    >
+                                <round-progress
+                                    [current]="current"
+                                    [max]="max"
+                                    [color]="gradient ? 'url(#gradient)' : color"
+                                    [background]="background"
+                                    [radius]="radius"
+                                    [stroke]="stroke"
+                                    [semicircle]="semicircle"
+                                    [rounded]="rounded"
+                                    [clockwise]="clockwise"
+                                    [responsive]="responsive"
+                                    [duration]="duration"
+                                    [animation]="animation"
+                                    [animationDelay]="animationDelay"
+                                    style="left:33%;"
+                                    >
+                                </round-progress>
+                                <h3>Keep them open for just {{timeLeft}} more seconds. You're almost there!</h3>
                             </div>
                         </mat-step>
-
-                        <mat-step *ngIf="$index != (Questions.length-1)">
+        
+                        <mat-step>
                             <div class="Wait-Period">
-                                <h3>Hey, let's take a {{max}} second break!</h3>
+                                <h3>Hey, keep your eyes closed for 60 seconds!</h3>
                                 <img 
-                                    height="400" 
-                                    width="800" 
-                                    [lazyLoad]="'assets/Static/rando-1.gif'"
-                                    (load)="SetEvent('Wait-Period-'+ ($index+1).toString()+'-Start'); startTimer(1,20,20);"
-                                    >
-                                <!-- <round-progress
+                                    height="200" 
+                                    width="600" 
+                                    [lazyLoad]="'assets/Static/eyes-closed.jpg'" 
+                                    (load)="SetEvent('Eyes-Closed-Start'); startTimer(3,60,60);">
+                                <round-progress
                                     [current]="current"
                                     [max]="max"
                                     [color]="gradient ? 'url(#gradient)' : color"
@@ -195,92 +119,332 @@
                                     [animation]="animation"
                                     [animationDelay]="animationDelay"
                                     style="left:33%;">
-                                </round-progress> -->
-                                <h3>The next question will be in {{timeLeft}} seconds.</h3>
+                                </round-progress>
+                                <h3>Keep them closed for just {{timeLeft}} more seconds. You're almost there!</h3>
                             </div>
                         </mat-step>
+                    </div>
 
-                        <mat-step *ngIf="$index == (Questions.length-1)">
+                    <!-- IAPS Phase -->
+                    <div *ngIf="Experiment != 'Video-Lecture-WPEB-200'">
+                        <mat-step>
+                            <h1>Begin IAPS</h1>
+                            <button mat-button matStepperNext>Start IAPS</button>
+                        </mat-step>
+
+                        <div *ngFor="let data of IAPSdata; let i = index">
+                            <mat-step *ngFor="let group of data.group; let j = index">
+                                <div>
+                                    <h3>Focus on the following images</h3>
+                                    <img height="400" width="800" [lazyLoad]="group.src" 
+                                        (load)="SetEvent('C' + (i+1).toString() + '-I' + (j+1).toString() + '-Start'); InnerStepperNext('C'+(i+1).toString(),'I'+(j+1).toString(),5000)">
+                                </div>
+                            </mat-step>
+                            <mat-step>
+                                <div>
+                                    <h3>Hey, let's take a 5 second break!</h3>
+                                    <img height="400" width="800" [lazyLoad]="'assets/Static/grey-screen.jpg'" 
+                                        (load)="SetEvent('Grey-Screen-' + (i+1).toString() + '-Start'); InnerStepperNext('Grey-Screen',(i+1).toString(),5000)">
+                                </div>
+                            </mat-step>
+                        </div>
+                    </div>
+
+                    <!-- Start Experiment -->
+                    <mat-step>
+                        <h1>Start the Experiment when ready</h1>
+                        <button  mat-button matStepperNext>Start Experiment</button>
+                    </mat-step>
+
+                    <!-- Deepfake Experiment -->
+                    <div *ngIf="Experiment == 'Deepfake-Recognition'">
+                        <div *ngFor="let question of Questions; let $index = index" class="Wait-Period">
+                            <mat-step [ngModelGroup]="($index+1).toString()" #QuestionValid="ngModelGroup">
+                                <ng-template matStepContent>
+
+                                    <img height="75" width="600" [lazyLoad]="question.banner" 
+                                    (load)="SetEvent('Task-' + ($index+1).toString() + '-Start');">
+
+                                    <br/>
+
+                                    <!-- Toggle Group -->
+                                    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" value="question.content[0].value">
+                                        <mat-button-toggle *ngFor="let vdo of question.content; let $index = index"
+                                        (change)="startPlaylistVdo(vdo, $index)" [class.selected]="vdo === currentVideo"
+                                        value="vgo.value">{{ vdo.name }}</mat-button-toggle>
+
+                                    <!-- Video Player -->
+                                    </mat-button-toggle-group>
+                                    <div class="video-player-wrapper" style="margin-top: 5px;">
+                                        <vg-player (onPlayerReady)="videoPlayerInit($event)">
+                                        <vg-overlay-play></vg-overlay-play>
+                                        <vg-buffering></vg-buffering>
+                                        <vg-scrub-bar>
+                                            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                                            <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                                        </vg-scrub-bar>
+                                        <vg-controls>
+                                            <vg-play-pause></vg-play-pause>
+                                            <vg-playback-button></vg-playback-button>
+                                            <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+                                            <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+                                            <vg-mute></vg-mute>
+                                            <vg-volume></vg-volume>
+                                            <vg-fullscreen></vg-fullscreen>
+                                        </vg-controls>
+                                        <video #media [vgMedia]="$any(media)" [src]="currentVideo.src" id="singleVideo" crossorigin>
+                                        </video>
+                                        </vg-player>
+                                    </div>
+
+                                    <!-- Input Section -->
+                                    <div class="Test-Inputs">
+                                        <mat-radio-group aria-label="Select an option" name="Answer" ngModel required>
+                                            <mat-radio-button *ngFor="let vdo of question.content; let $index = index" 
+                                            [value]="vdo.value" (click)="print($index)" style="margin-right: 5px;">
+                                                {{ vdo.name }}
+                                            </mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>
+                                    
+                                    <!-- Next Button -->
+                                    <button *ngIf="QuestionValid.valid" mat-button matStepperNext 
+                                    (click)="$index == (Questions.length-1) ? 0 : SetEvent('Task-' + ($index+1).toString() + '-End'); Loop();">Next</button>
+                                </ng-template>
+                            </mat-step>
+
+                            <mat-step>
+                                <div class="Wait-Period">
+                                    <h1 class="c2">The answer is {{question.answer}}</h1>
+                                    <img height="300" width="600" [lazyLoad]="'assets/Static/yay-happy.gif'" 
+                                        (load)="SetEvent('Reveal-Screen-' + ($index+1).toString() + '-Start'); InnerStepperNext('Reveal-Screen',($index+1).toString(),10000)">
+                                </div>
+                            </mat-step>
+
+                            <mat-step *ngIf="$index != (Questions.length-1)">
+                                <div class="Wait-Period">
+                                    <h3>Hey, let's take a {{max}} second break!</h3>
+                                    <img 
+                                        height="400" 
+                                        width="800" 
+                                        [lazyLoad]="'assets/Static/rando-1.gif'"
+                                        (load)="SetEvent('Wait-Period-'+ ($index+1).toString()+'-Start'); startTimer(1,20,20);"
+                                        >
+                                    <!-- <round-progress
+                                        [current]="current"
+                                        [max]="max"
+                                        [color]="gradient ? 'url(#gradient)' : color"
+                                        [background]="background"
+                                        [radius]="radius"
+                                        [stroke]="stroke"
+                                        [semicircle]="semicircle"
+                                        [rounded]="rounded"
+                                        [clockwise]="clockwise"
+                                        [responsive]="responsive"
+                                        [duration]="duration"
+                                        [animation]="animation"
+                                        [animationDelay]="animationDelay"
+                                        style="left:33%;">
+                                    </round-progress> -->
+                                    <h3>The next question will be in {{timeLeft}} seconds.</h3>
+                                </div>
+                            </mat-step>
+
+                            <mat-step *ngIf="$index == (Questions.length-1)">
+                                <div class="Wait-Period">
+                                    <h3>Completed Exam!</h3>
+                                </div>
+                            </mat-step>
+
+                        </div>
+                    </div>
+
+                    <!-- Emotional Colors and Mash-Ups -->
+                    <div *ngIf="Experiment == 'Emotional-Colors' || Experiment == 'Mash-Ups'">
+
+                        <div *ngFor="let data of Payload; let i = index">
+                            <!-- <mat-step [ngModelGroup]="(i+1).toString()" #ELabelValid="ngModelGroup"> -->
+                            <mat-step *ngFor="let group of data.group; let j = index">
+
+                                <h3 *ngIf="Experiment == 'Emotional-Colors'">Take a look at the image and think about each set.</h3>
+                                <h3 *ngIf="Experiment == 'Mash-Ups'">Listen real close and think about the music</h3>
+
+                                <div *ngIf="Experiment == 'Emotional-Colors'">
+
+                                    <img height="400" width="800" [lazyLoad]="group.src" (load)="SetEvent((i+1).toString() + '-' + (j+1).toString() + '-Start'); InnerStepperNext((i+1).toString(),(j+1).toString(),5000)">
+                                </div>
+
+                                <div *ngIf="Experiment == 'Mash-Ups'">
+                                    <!-- <audio class="Music-Player" (ended)="NextSwitch = true" controls>
+                                        <source src="{{data.src}}" type="audio/wav">
+                                        Your browser does not support the audio tag.
+                                    </audio> -->
+                                    <img height="400" width="400" [lazyLoad]="LoadingImage" (load)="SetEvent((i+1).toString() + '-' + (j+1).toString() + '-Start'); playMusic(group.src, i, j);">
+                                </div>
+
+                                <!-- Input Section -->
+                                <!-- <div *ngIf="Experiment == 'Emotional-Colors'">
+                                    <div class="Test-Inputs">
+                                        <label>Between 1 and 5, with 1 indicating unpleasant and 5 indicating pleasant, how would you rate this image?</label> <br/>
+                                        <mat-radio-group aria-label="Between 1 and 5, with 1 indicating unpleasant and 5 indicating pleasant, how would you rate this image?" name="Valence" ngModel required>
+                                            <mat-radio-button *ngFor="let number of [0,1,2,3,4]; let i = index" 
+                                            [value]="i+1" style="margin-right: 5px; margin-top: 5px;">
+                                                {{i+1}}
+                                            </mat-radio-button>
+                                        </mat-radio-group>
+
+                                    </div>
+
+                                    <div class="Test-Inputs">
+                                        <label>Between 1 and 5, with 1 indicating calm and 5 indicating excitement, how would you rate this image?</label> <br/>
+                                        <mat-radio-group aria-label="Between 1 and 5, with 1 indicating calm and 5 indicating excitement, how would you rate this image?" name="Arousal" ngModel required>
+                                            <mat-radio-button *ngFor="let number of [0,1,2,3,4]; let i = index" 
+                                            [value]="i+1" style="margin-right: 5px; margin-top: 5px;">
+                                                {{i+1}}
+                                            </mat-radio-button>
+                                        </mat-radio-group>
+
+                                    </div>
+                                </div> -->
+                                <!-- <div class="Test-Inputs">
+                                    <mat-radio-group aria-label="Between 1 and 5, with 1 indicating independent and 5 indicating dependent, how would you rate this image?" name="Dominance" ngModel required>
+                                        <mat-radio-button *ngFor="let number of [0,1,2,3,4]; let i = index" 
+                                        [value]="i+1" style="margin-right: 5px; margin-top: 5px;">
+                                            {{i+1}}
+                                        </mat-radio-button>
+                                    </mat-radio-group>
+                                </div> -->
+
+                                <!-- Next Button -->
+                                <!-- <button *ngIf="Experiment == 'Mash-Ups' && NextSwitch == true && i != (Payload.length-1)" 
+                                (click)="NextSwitch = false" mat-button matStepperNext>Next</button> -->
+                                <!-- <button *ngIf="Experiment == 'Emotional-Colors' && ELabelValid.valid && i != (Payload.length-1)" 
+                                mat-button matStepperNext>Next</button> -->
+
+                            </mat-step>
+
+                            <mat-step *ngIf="Experiment == 'Emotional-Colors'">
+                                <div>
+                                    <h3>Hey, let's take a 5 second break!</h3>
+                                    <img height="400" width="800" [lazyLoad]="'assets/Static/grey-screen.jpg'" 
+                                        (load)="'Grey-Screen-' + SetEvent((i+1).toString() + '-Start'); InnerStepperNext('Grey-Screen',(i+1).toString(),5000)">
+                                </div>
+                            </mat-step>
+                        </div>
+                    </div>
+
+                    <!-- Video Lecture -->
+                    <div *ngIf="Experiment == 'Video-Lecture-WPEB-200' || Experiment == 'Video-Lecture-WPEB-205'">
+                        <div *ngFor="let question of Questions; let $index = index" class="Wait-Period">
+                            <mat-step [ngModelGroup]="($index+1).toString()" #QuestionValid="ngModelGroup">
+                                <ng-template matStepContent>
+
+                                    <img height="75" width="600" [lazyLoad]="question.banner" 
+                                    (load)="SetEvent('Task-' + ($index+1).toString() + '-Start');">
+
+                                    <br/>
+
+                                    <!-- Toggle Group -->
+                                    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" value="question.content[0].value">
+                                        <mat-button-toggle *ngFor="let vdo of question.content; let $index = index"
+                                        (change)="startPlaylistVdo(vdo, $index)" [class.selected]="vdo === currentVideo"
+                                        value="vgo.value">{{ vdo.name }}</mat-button-toggle>
+                                    </mat-button-toggle-group>
+
+                                    <!-- Video Player -->
+                                    <div class="video-player-wrapper" style="margin-top: 5px;">
+                                        <vg-player (onPlayerReady)="videoPlayerInit($event)">
+                                        <vg-overlay-play></vg-overlay-play>
+                                        <vg-buffering></vg-buffering>
+                                        <vg-scrub-bar>
+                                            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                                            <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                                        </vg-scrub-bar>
+                                        <vg-controls>
+                                            <vg-play-pause></vg-play-pause>
+                                            <vg-playback-button></vg-playback-button>
+                                            <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+                                            <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+                                            <vg-mute></vg-mute>
+                                            <vg-volume></vg-volume>
+                                            <vg-fullscreen></vg-fullscreen>
+                                        </vg-controls>
+                                        <video #media [vgMedia]="$any(media)" [src]="currentVideo.src" id="singleVideo" crossorigin>
+                                        </video>
+                                        </vg-player>
+                                    </div>
+                                    
+                                    <!-- Next Button -->
+                                    <button mat-button matStepperNext 
+                                    (click)="SetEvent('Task-' + ($index+1).toString() + '-End');">Next</button>
+                                </ng-template>
+                            </mat-step>
+
+                        </div>
+                    </div>
+
+                    <!-- Eyes Open and Closed -->
+                    <div>
+                        <mat-step>
                             <div class="Wait-Period">
-                                <h3>Completed Exam!</h3>
+                                <h3>Hey, keep your eyes open for 60 seconds!</h3>
+                                <img 
+                                    height="200" 
+                                    width="600" 
+                                    [lazyLoad]="'assets/Static/eyes-open.jpg'"
+                                    (load)="SetEvent('Eyes-Open-Start'); startTimer(2,60,60);"
+                                    >
+                                <round-progress
+                                    [current]="current"
+                                    [max]="max"
+                                    [color]="gradient ? 'url(#gradient)' : color"
+                                    [background]="background"
+                                    [radius]="radius"
+                                    [stroke]="stroke"
+                                    [semicircle]="semicircle"
+                                    [rounded]="rounded"
+                                    [clockwise]="clockwise"
+                                    [responsive]="responsive"
+                                    [duration]="duration"
+                                    [animation]="animation"
+                                    [animationDelay]="animationDelay"
+                                    style="left:33%;"
+                                    >
+                                </round-progress>
+                                <h3>Keep them open for just {{timeLeft}} more seconds. You're almost there!</h3>
                             </div>
                         </mat-step>
-
-                    </div>
-                </div>
-
-                <div *ngIf="Experiment == 'Emotional-Colors' || Experiment == 'Mash-Ups'">
-
-                    <div *ngFor="let data of Payload; let i = index">
-                        <!-- <mat-step [ngModelGroup]="(i+1).toString()" #ELabelValid="ngModelGroup"> -->
-                        <mat-step *ngFor="let group of data.group; let j = index">
-
-                            <h3 *ngIf="Experiment == 'Emotional-Colors'">Take a look at the image and think about each set.</h3>
-                            <h3 *ngIf="Experiment == 'Mash-Ups'">Listen real close and think about the music</h3>
-
-                            <div *ngIf="Experiment == 'Emotional-Colors'">
-
-                                <img height="400" width="800" [lazyLoad]="group.src" (load)="SetEvent((i+1).toString() + '-' + (j+1).toString() + '-Start'); InnerStepperNext((i+1).toString(),(j+1).toString(),5000)">
-                            </div>
-
-                            <div *ngIf="Experiment == 'Mash-Ups'">
-                                <!-- <audio class="Music-Player" (ended)="NextSwitch = true" controls>
-                                    <source src="{{data.src}}" type="audio/wav">
-                                    Your browser does not support the audio tag.
-                                  </audio> -->
-                                <img height="400" width="400" [lazyLoad]="LoadingImage" (load)="SetEvent((i+1).toString() + '-' + (j+1).toString() + '-Start'); playMusic(group.src, i, j);">
-                            </div>
-
-                            <!-- Input Section -->
-                            <!-- <div *ngIf="Experiment == 'Emotional-Colors'">
-                                <div class="Test-Inputs">
-                                    <label>Between 1 and 5, with 1 indicating unpleasant and 5 indicating pleasant, how would you rate this image?</label> <br/>
-                                    <mat-radio-group aria-label="Between 1 and 5, with 1 indicating unpleasant and 5 indicating pleasant, how would you rate this image?" name="Valence" ngModel required>
-                                        <mat-radio-button *ngFor="let number of [0,1,2,3,4]; let i = index" 
-                                        [value]="i+1" style="margin-right: 5px; margin-top: 5px;">
-                                            {{i+1}}
-                                        </mat-radio-button>
-                                    </mat-radio-group>
-
-                                </div>
-
-                                <div class="Test-Inputs">
-                                    <label>Between 1 and 5, with 1 indicating calm and 5 indicating excitement, how would you rate this image?</label> <br/>
-                                    <mat-radio-group aria-label="Between 1 and 5, with 1 indicating calm and 5 indicating excitement, how would you rate this image?" name="Arousal" ngModel required>
-                                        <mat-radio-button *ngFor="let number of [0,1,2,3,4]; let i = index" 
-                                        [value]="i+1" style="margin-right: 5px; margin-top: 5px;">
-                                            {{i+1}}
-                                        </mat-radio-button>
-                                    </mat-radio-group>
-
-                                </div>
-                            </div> -->
-                            <!-- <div class="Test-Inputs">
-                                <mat-radio-group aria-label="Between 1 and 5, with 1 indicating independent and 5 indicating dependent, how would you rate this image?" name="Dominance" ngModel required>
-                                    <mat-radio-button *ngFor="let number of [0,1,2,3,4]; let i = index" 
-                                    [value]="i+1" style="margin-right: 5px; margin-top: 5px;">
-                                        {{i+1}}
-                                    </mat-radio-button>
-                                </mat-radio-group>
-                            </div> -->
-
-                            <!-- Next Button -->
-                            <!-- <button *ngIf="Experiment == 'Mash-Ups' && NextSwitch == true && i != (Payload.length-1)" 
-                            (click)="NextSwitch = false" mat-button matStepperNext>Next</button> -->
-                            <!-- <button *ngIf="Experiment == 'Emotional-Colors' && ELabelValid.valid && i != (Payload.length-1)" 
-                            mat-button matStepperNext>Next</button> -->
-
-                        </mat-step>
-
-                        <mat-step *ngIf="Experiment == 'Emotional-Colors'">
-                            <div>
-                                <h3>Hey, let's take a 5 second break!</h3>
-                                <img height="400" width="800" [lazyLoad]="'assets/Static/grey-screen.jpg'" 
-                                    (load)="'Grey-Screen-' + SetEvent((i+1).toString() + '-Start'); InnerStepperNext('Grey-Screen',(i+1).toString(),5000)">
+        
+                        <mat-step>
+                            <div class="Wait-Period">
+                                <h3>Hey, keep your eyes closed for 60 seconds!</h3>
+                                <img 
+                                    height="200" 
+                                    width="600" 
+                                    [lazyLoad]="'assets/Static/eyes-closed.jpg'" 
+                                    (load)="SetEvent('Eyes-Closed-Start'); startTimer(6,60,60);">
+                                <round-progress
+                                    [current]="current"
+                                    [max]="max"
+                                    [color]="gradient ? 'url(#gradient)' : color"
+                                    [background]="background"
+                                    [radius]="radius"
+                                    [stroke]="stroke"
+                                    [semicircle]="semicircle"
+                                    [rounded]="rounded"
+                                    [clockwise]="clockwise"
+                                    [responsive]="responsive"
+                                    [duration]="duration"
+                                    [animation]="animation"
+                                    [animationDelay]="animationDelay"
+                                    style="left:33%;">
+                                </round-progress>
+                                <h3>Keep them closed for just {{timeLeft}} more seconds. You're almost there!</h3>
                             </div>
                         </mat-step>
                     </div>
                 </div>
+
 
             </mat-horizontal-stepper>
         </mat-card-content>
