@@ -249,22 +249,7 @@ export class ExperimentTestComponent{
   //   }
   // ];
 
-  // Questions = [
-  //   {
-  //     answer: 'B',
-  //     number: 1,
-  //     banner: 'assets/Static/video-banner.png',
-  //     content: [
-  //       {
-  //         name: 'Video Lecture',
-  //         src: '/assets/Video-Lectures/Experiment-Video-1.mp4',
-  //         type: 'video/mp4',
-  //         value: 'A'
-  //       }
-  //     ]
-  //   }
-  // ];
-
+  // Mitch's first video
   Questions = [
     {
       answer: 'B',
@@ -273,13 +258,30 @@ export class ExperimentTestComponent{
       content: [
         {
           name: 'Video Lecture',
-          src: '/assets/Video-Lectures/Experiment-Video-2.mp4',
+          src: '/assets/Video-Lectures/Experiment-Video-1.mp4',
           type: 'video/mp4',
           value: 'A'
         }
       ]
     }
   ];
+
+  // Mitch's second video
+  // Questions = [
+  //   {
+  //     answer: 'B',
+  //     number: 1,
+  //     banner: 'assets/Static/video-banner.png',
+  //     content: [
+  //       {
+  //         name: 'Video Lecture',
+  //         src: '/assets/Video-Lectures/Experiment-Video-2.mp4',
+  //         type: 'video/mp4',
+  //         value: 'A'
+  //       }
+  //     ]
+  //   }
+  // ];
 
   IAPSdata = [
       {
@@ -512,8 +514,8 @@ export class ExperimentTestComponent{
   //         src: '/assets/Audio/file32.wav' 
   //       }
   //     ]
-  //   }//,
-  //   /*{
+  //   },
+  //   {
   //     group:[
   //       {
   //         src: '/assets/Audio/file6.wav' 
@@ -690,7 +692,7 @@ export class ExperimentTestComponent{
   //         src: '/assets/Audio/file48.wav' 
   //       }
   //     ]
-  //   }*/
+  //   }
   // ]
 
   Payload = [
@@ -1003,311 +1005,311 @@ export class ExperimentTestComponent{
     }
   ]
 
-  PerceptionPayload = [
-    {
-      src: '/assets/Audio/file1.wav' 
-    },
-    {
-      src: '/assets/Audio/file2.wav' 
-    },
-    {
-      src: '/assets/Audio/file3.wav' 
-    },
-    {
-      src: '/assets/Audio/file4.wav' 
-    },
-    {
-      src: '/assets/Audio/file5.wav' 
-    },
-    {
-      src: '/assets/Audio/file6.wav' 
-    },
-    {
-      src: '/assets/Audio/file7.wav' 
-    },
-    {
-      src: '/assets/Audio/file8.wav' 
-    },
-    {
-      src: '/assets/Audio/file9.wav' 
-    },
-    {
-      src: '/assets/Audio/file10.wav' 
-    },
-    {
-      src: '/assets/Audio/file11.wav' 
-    },
-    {
-      src: '/assets/Audio/file12.wav' 
-    },
-    {
-      src: '/assets/Audio/file13.wav' 
-    },
-    {
-      src: '/assets/Audio/file14.wav' 
-    },
-    {
-      src: '/assets/Audio/file15.wav' 
-    },
-    {
-      src: '/assets/Audio/file16.wav' 
-    },
-    {
-      src: '/assets/Audio/file17.wav' 
-    },
-    {
-      src: '/assets/Audio/file18.wav' 
-    },
-    {
-      src: '/assets/Audio/file19.wav' 
-    }
-  ]
-
   // PerceptionPayload = [
   //   {
-  //     src: '/assets/Static/red-screen.png' 
+  //     src: '/assets/Audio/file1.wav' 
   //   },
   //   {
-  //     src: '/assets/Static/yellow-screen.jpg' 
+  //     src: '/assets/Audio/file2.wav' 
   //   },
   //   {
-  //     src: '/assets/Static/green-screen.png'  
+  //     src: '/assets/Audio/file3.wav' 
   //   },
   //   {
-  //     src: '/assets/Static/blue-screen.png' 
+  //     src: '/assets/Audio/file4.wav' 
   //   },
   //   {
-  //     src: '/assets/Static/black-screen.jpg'  
+  //     src: '/assets/Audio/file5.wav' 
   //   },
   //   {
-  //     src: '/assets/Static/white-screen.png'  
+  //     src: '/assets/Audio/file6.wav' 
   //   },
   //   {
-  //     src: '/assets/Color-Label/1b.png' 
+  //     src: '/assets/Audio/file7.wav' 
   //   },
   //   {
-  //     src: '/assets/Color-Label/1g.png' 
+  //     src: '/assets/Audio/file8.wav' 
   //   },
   //   {
-  //     src: '/assets/Color-Label/1r.png'  
+  //     src: '/assets/Audio/file9.wav' 
   //   },
   //   {
-  //     src: '/assets/Color-Label/1w.png' 
+  //     src: '/assets/Audio/file10.wav' 
   //   },
   //   {
-  //     src: '/assets/Color-Label/1y.png'  
+  //     src: '/assets/Audio/file11.wav' 
   //   },
   //   {
-  //     src: '/assets/Color-Label/2b.png' 
+  //     src: '/assets/Audio/file12.wav' 
   //   },
   //   {
-  //     src: '/assets/Color-Label/2g.png' 
+  //     src: '/assets/Audio/file13.wav' 
   //   },
   //   {
-  //     src: '/assets/Color-Label/2r.png'  
+  //     src: '/assets/Audio/file14.wav' 
   //   },
   //   {
-  //     src: '/assets/Color-Label/2w.png' 
+  //     src: '/assets/Audio/file15.wav' 
   //   },
   //   {
-  //     src: '/assets/Color-Label/2y.png'  
+  //     src: '/assets/Audio/file16.wav' 
   //   },
   //   {
-  //     src: '/assets/Color-Label/3b.png' 
+  //     src: '/assets/Audio/file17.wav' 
   //   },
   //   {
-  //     src: '/assets/Color-Label/3g.png' 
+  //     src: '/assets/Audio/file18.wav' 
   //   },
   //   {
-  //     src: '/assets/Color-Label/3r.png'  
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/3w.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/3y.png'  
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/4b.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/4g.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/4r.png'  
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/4w.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/4y.png'  
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/5b.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/5g.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/5r.png'  
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/5w.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/5y.png'  
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/6b.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/6g.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/6r.png'  
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/6w.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/6y.png'  
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/7b.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/7g.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/7r.png'  
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/7w.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/7y.png'  
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/8b.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/8g.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/8r.png'  
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/8w.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/8y.png'  
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/9b.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/9g.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/9r.png'  
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/9w.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/9y.png'  
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/10b.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/10g.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/10r.png'  
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/10w.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/10y.png'  
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/11b.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/11g.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/11r.png'  
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/11w.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/11y.png'  
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/12b.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/12g.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/12r.png'  
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/12w.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/12y.png'  
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/13b.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/13g.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/13r.png'  
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/13w.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/13y.png'  
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/14b.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/14g.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/14r.png'  
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/14w.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/14y.png'  
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/15b.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/15g.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/15r.png'  
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/15w.png' 
-  //   },
-  //   {
-  //     src: '/assets/Color-Label/15y.png'  
+  //     src: '/assets/Audio/file19.wav' 
   //   }
   // ]
+
+  PerceptionPayload = [
+    {
+      src: '/assets/Static/red-screen.png' 
+    },
+    {
+      src: '/assets/Static/yellow-screen.jpg' 
+    },
+    {
+      src: '/assets/Static/green-screen.png'  
+    },
+    {
+      src: '/assets/Static/blue-screen.png' 
+    },
+    {
+      src: '/assets/Static/black-screen.jpg'  
+    },
+    {
+      src: '/assets/Static/white-screen.png'  
+    },
+    {
+      src: '/assets/Color-Label/1b.png' 
+    },
+    {
+      src: '/assets/Color-Label/1g.png' 
+    },
+    {
+      src: '/assets/Color-Label/1r.png'  
+    },
+    {
+      src: '/assets/Color-Label/1w.png' 
+    },
+    {
+      src: '/assets/Color-Label/1y.png'  
+    },
+    {
+      src: '/assets/Color-Label/2b.png' 
+    },
+    {
+      src: '/assets/Color-Label/2g.png' 
+    },
+    {
+      src: '/assets/Color-Label/2r.png'  
+    },
+    {
+      src: '/assets/Color-Label/2w.png' 
+    },
+    {
+      src: '/assets/Color-Label/2y.png'  
+    },
+    {
+      src: '/assets/Color-Label/3b.png' 
+    },
+    {
+      src: '/assets/Color-Label/3g.png' 
+    },
+    {
+      src: '/assets/Color-Label/3r.png'  
+    },
+    {
+      src: '/assets/Color-Label/3w.png' 
+    },
+    {
+      src: '/assets/Color-Label/3y.png'  
+    },
+    {
+      src: '/assets/Color-Label/4b.png' 
+    },
+    {
+      src: '/assets/Color-Label/4g.png' 
+    },
+    {
+      src: '/assets/Color-Label/4r.png'  
+    },
+    {
+      src: '/assets/Color-Label/4w.png' 
+    },
+    {
+      src: '/assets/Color-Label/4y.png'  
+    },
+    {
+      src: '/assets/Color-Label/5b.png' 
+    },
+    {
+      src: '/assets/Color-Label/5g.png' 
+    },
+    {
+      src: '/assets/Color-Label/5r.png'  
+    },
+    {
+      src: '/assets/Color-Label/5w.png' 
+    },
+    {
+      src: '/assets/Color-Label/5y.png'  
+    },
+    {
+      src: '/assets/Color-Label/6b.png' 
+    },
+    {
+      src: '/assets/Color-Label/6g.png' 
+    },
+    {
+      src: '/assets/Color-Label/6r.png'  
+    },
+    {
+      src: '/assets/Color-Label/6w.png' 
+    },
+    {
+      src: '/assets/Color-Label/6y.png'  
+    },
+    {
+      src: '/assets/Color-Label/7b.png' 
+    },
+    {
+      src: '/assets/Color-Label/7g.png' 
+    },
+    {
+      src: '/assets/Color-Label/7r.png'  
+    },
+    {
+      src: '/assets/Color-Label/7w.png' 
+    },
+    {
+      src: '/assets/Color-Label/7y.png'  
+    },
+    {
+      src: '/assets/Color-Label/8b.png' 
+    },
+    {
+      src: '/assets/Color-Label/8g.png' 
+    },
+    {
+      src: '/assets/Color-Label/8r.png'  
+    },
+    {
+      src: '/assets/Color-Label/8w.png' 
+    },
+    {
+      src: '/assets/Color-Label/8y.png'  
+    },
+    {
+      src: '/assets/Color-Label/9b.png' 
+    },
+    {
+      src: '/assets/Color-Label/9g.png' 
+    },
+    {
+      src: '/assets/Color-Label/9r.png'  
+    },
+    {
+      src: '/assets/Color-Label/9w.png' 
+    },
+    {
+      src: '/assets/Color-Label/9y.png'  
+    },
+    {
+      src: '/assets/Color-Label/10b.png' 
+    },
+    {
+      src: '/assets/Color-Label/10g.png' 
+    },
+    {
+      src: '/assets/Color-Label/10r.png'  
+    },
+    {
+      src: '/assets/Color-Label/10w.png' 
+    },
+    {
+      src: '/assets/Color-Label/10y.png'  
+    },
+    {
+      src: '/assets/Color-Label/11b.png' 
+    },
+    {
+      src: '/assets/Color-Label/11g.png' 
+    },
+    {
+      src: '/assets/Color-Label/11r.png'  
+    },
+    {
+      src: '/assets/Color-Label/11w.png' 
+    },
+    {
+      src: '/assets/Color-Label/11y.png'  
+    },
+    {
+      src: '/assets/Color-Label/12b.png' 
+    },
+    {
+      src: '/assets/Color-Label/12g.png' 
+    },
+    {
+      src: '/assets/Color-Label/12r.png'  
+    },
+    {
+      src: '/assets/Color-Label/12w.png' 
+    },
+    {
+      src: '/assets/Color-Label/12y.png'  
+    },
+    {
+      src: '/assets/Color-Label/13b.png' 
+    },
+    {
+      src: '/assets/Color-Label/13g.png' 
+    },
+    {
+      src: '/assets/Color-Label/13r.png'  
+    },
+    {
+      src: '/assets/Color-Label/13w.png' 
+    },
+    {
+      src: '/assets/Color-Label/13y.png'  
+    },
+    {
+      src: '/assets/Color-Label/14b.png' 
+    },
+    {
+      src: '/assets/Color-Label/14g.png' 
+    },
+    {
+      src: '/assets/Color-Label/14r.png'  
+    },
+    {
+      src: '/assets/Color-Label/14w.png' 
+    },
+    {
+      src: '/assets/Color-Label/14y.png'  
+    },
+    {
+      src: '/assets/Color-Label/15b.png' 
+    },
+    {
+      src: '/assets/Color-Label/15g.png' 
+    },
+    {
+      src: '/assets/Color-Label/15r.png'  
+    },
+    {
+      src: '/assets/Color-Label/15w.png' 
+    },
+    {
+      src: '/assets/Color-Label/15y.png'  
+    }
+  ]
 
 
   LoadingImage = "/assets/Static/listen.png"
