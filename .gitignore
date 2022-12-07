@@ -40,3 +40,15 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# NDA files
+/src/assets/Audio/
+/src/assets/Color-Label/
+/src/assets/Static/
+/src/assets/Deep-Fake/
+/src/assets/IAPS/
+/src/assets/SAM/
+/src/assets/Video-Lectures/
+
+# etc.
+package-lock.json
